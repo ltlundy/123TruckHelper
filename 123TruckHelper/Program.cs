@@ -30,6 +30,7 @@ builder.Services.AddDbContext<TruckHelperDbContext>(options =>
 // DI
 builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddTransient<IDataIngestionService, DataIngestionService>();
+builder.Services.AddTransient<ITruckService, TruckService>();
 
 var app = builder.Build();
 

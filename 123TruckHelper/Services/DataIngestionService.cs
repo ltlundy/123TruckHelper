@@ -1,4 +1,5 @@
-﻿using _123TruckHelper.Models.EF;
+﻿using _123TruckHelper.Models.Data;
+using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -8,10 +9,12 @@ namespace _123TruckHelper.Services
     public class DataIngestionService : IDataIngestionService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ITruckService _TruckService;
 
-        public DataIngestionService(IServiceScopeFactory serviceScopeFactory)
+        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _TruckService = truckService;
         }
 
         public async Task ParseAndSaveMessage(string json)
@@ -48,27 +51,9 @@ namespace _123TruckHelper.Services
                 Converters = { new EquipTypeConverter(), new TripLengthConverter() }
             };
 
-            var truck = JsonSerializer.Deserialize<Truck>(json, jsonSerializerOptions);
+            var truck = JsonSerializer.Deserialize<TruckData>(json, jsonSerializerOptions);
 
-            using var scope = _serviceScopeFactory.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
-
-            var existing_truck = await dbContext.Trucks.Where(t => t.TruckId == truck.TruckId).SingleOrDefaultAsync();
-
-            if (existing_truck != null)
-            {
-                if (!existing_truck.Busy)
-                {
-                    existing_truck.PositionLatitude = truck.PositionLatitude;
-                    existing_truck.PositionLongitude = truck.PositionLongitude;
-                    existing_truck.NextTripLengthPreference = truck.NextTripLengthPreference;
-                }
-            }
-            else
-            {
-                await dbContext.Trucks.AddAsync(truck);
-            }
-            await dbContext.SaveChangesAsync();
+            await _TruckService.CreateOrUpdateTruckAsync(truck);
         }
 
         private async Task ParseAndSaveLoad(string json)
