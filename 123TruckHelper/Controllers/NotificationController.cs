@@ -1,6 +1,7 @@
 ﻿using _123TruckHelper.Models.API;
 using _123TruckHelper.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace _123TruckHelper.Controllers
 {
@@ -25,9 +26,19 @@ namespace _123TruckHelper.Controllers
             return await _notificationService.GetAllNotificationsAsync();
         }
 
-        public async Task RespondToNotificationAsync(int notificationId, bool accepted)
+
+        [HttpPost("/respond/{notificationId}/{accepted}")]
+        public async Task<HttpStatusCode> RespondToNotificationAsync(int notificationId, bool accepted)
         {
-            await _notificationService.RespondToNotificationAsync(notificationId, accepted);
+            var status = await _notificationService.RespondToNotificationAsync(notificationId, accepted);
+
+            return status switch
+            {
+                202 => HttpStatusCode.Accepted,
+                404 => HttpStatusCode.NotFound,
+                410 => HttpStatusCode.Gone,
+                _ => HttpStatusCode.BadRequest,
+            };
         }
     }
 }

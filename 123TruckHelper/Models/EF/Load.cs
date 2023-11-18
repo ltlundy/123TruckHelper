@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace _123TruckHelper.Models.EF
 {
@@ -35,5 +36,10 @@ namespace _123TruckHelper.Models.EF
         /// For soft deletes
         /// </summary>
         public bool Inactive { get; set; } = false;
+
+        public bool IsAvaiable { get; set; } = false;
+
+        [AllowNull]
+        public Truck Truck { get; set; } = null;
     }
 }

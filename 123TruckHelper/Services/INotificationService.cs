@@ -6,6 +6,6 @@ namespace _123TruckHelper.Services
     {
         Task<List<NotificationResponse>> GetAllNotificationsAsync();
 
-        Task RespondToNotificationAsync(int notificationId, bool accepted);
+        Task<int> RespondToNotificationAsync(int notificationId, bool accepted);
     }
 }

@@ -8,10 +8,12 @@ namespace _123TruckHelper.Services
     public class NotificationService : INotificationService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ILoadService _loadService;
 
-        public NotificationService(IServiceScopeFactory serviceScopeFactory)
+        public NotificationService(IServiceScopeFactory serviceScopeFactory, ILoadService loadService)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _loadService = loadService;
         }
 
         public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
@@ -24,8 +26,9 @@ namespace _123TruckHelper.Services
                 .ToListAsync();
         }
 
-        public async Task RespondToNotificationAsync(int notificationId, bool accepted)
+        public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)
         {
+            
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
@@ -33,10 +36,21 @@ namespace _123TruckHelper.Services
                 .Where(n => n.Id == notificationId)
                 .SingleOrDefaultAsync();
 
-            notif.Accepted = accepted;
+            if (notif == null)
+            {
+                return 404;
+            }
 
-            await dbContext.SaveChangesAsync();
-            return;
+            var status = await _loadService.ClaimLoad(notif.Load.LoadId, notif.Truck.TruckId);
+            
+            if (status == 202)
+            {
+                notif.Accepted = accepted;
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            return status;
         }
     }
 }
