@@ -28,6 +28,9 @@ namespace _123TruckHelper.Controllers
 
 
         [HttpPost("/respond/{notificationId}/{accepted}")]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(410)]
         public async Task<HttpStatusCode> RespondToNotificationAsync(int notificationId, bool accepted)
         {
             var status = await _notificationService.RespondToNotificationAsync(notificationId, accepted);
