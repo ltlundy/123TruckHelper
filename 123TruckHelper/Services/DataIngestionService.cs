@@ -36,8 +36,7 @@ namespace _123TruckHelper.Services
             catch (Exception e) {
                 Console.WriteLine(e.Message);
             }
-
-            
+     
         }
 
         private async Task ParseAndSaveTruck(string json)

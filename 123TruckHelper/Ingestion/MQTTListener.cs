@@ -9,11 +9,6 @@ namespace _123TruckHelper.Ingestion
 {
     public class MQTTListener
     {
-        //public static async Task Main(string[] args)
-        //{
-        //    await Handle_Received_Application_Message();
-        //}
-
         private static IServiceProvider _serviceProvider;
 
         public static void InitializeServiceProvider(IServiceProvider serviceProvider)
@@ -37,13 +32,9 @@ namespace _123TruckHelper.Ingestion
                    .WithCleanSession(true)
                    .Build();
 
-                // Setup message handling before connecting so that queued messages
-                // are also handled properly. When there is no event handler attached all
-                // received messages get lost.
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
                     string jsonPayload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                    Console.WriteLine(jsonPayload);
 
                     // read in the message and save the info
                     var dataIngestionService = _serviceProvider.GetRequiredService<IDataIngestionService>();
