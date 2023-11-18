@@ -1,25 +1,28 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-import './index.css';
-// import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import Admin from "./pages/Admin";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; // Fixed missing bootstrap styling
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
+  },
+]);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
