@@ -1,24 +1,25 @@
-﻿using MQTTnet;
+﻿using _123TruckHelper.Services;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Packets;
 using MQTTnet.Protocol;
 using System.Text;
 
-namespace _123TruckHelper.Controllers
+namespace _123TruckHelper.Ingestion
 {
     public class MQTTListener
     {
-        //public static async Task Main(string[] args)
-        //{
-        //    await Handle_Received_Application_Message();
-        //}
+        private static IServiceProvider _serviceProvider;
 
-        public static async Task Handle_Received_Application_Message()
+        public static void InitializeServiceProvider(IServiceProvider serviceProvider)
         {
-            /*
-             * This sample subscribes to a topic and processes the received message.
-             */
+            Console.WriteLine("Initializing MQTT.");
+            _serviceProvider = serviceProvider;
+            Console.WriteLine("Initialized MQTT.");
+        }
 
+        public static async Task ListenAndProcessAsync()
+        {
             var mqttFactory = new MqttFactory();
 
             using (var mqttClient = mqttFactory.CreateMqttClient())
@@ -31,14 +32,13 @@ namespace _123TruckHelper.Controllers
                    .WithCleanSession(true)
                    .Build();
 
-                // Setup message handling before connecting so that queued messages
-                // are also handled properly. When there is no event handler attached all
-                // received messages get lost.
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
-                    Console.WriteLine("Received application message.");
                     string jsonPayload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                    Console.WriteLine(jsonPayload);
+
+                    // read in the message and save the info
+                    var dataIngestionService = _serviceProvider.GetRequiredService<IDataIngestionService>();
+                    dataIngestionService.ParseAndSaveMessage(jsonPayload);
 
                     return Task.CompletedTask;
                 };
@@ -55,7 +55,7 @@ namespace _123TruckHelper.Controllers
 
                 await mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None);
 
-                Console.WriteLine("MQTT client subscribed to topic.");
+                await Task.Delay(Timeout.Infinite);
             }
         }
 

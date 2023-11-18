@@ -1,3 +1,4 @@
+using _123TruckHelper.Ingestion;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _123TruckHelper.Controllers
@@ -33,7 +34,7 @@ namespace _123TruckHelper.Controllers
         [HttpPost(Name = "Start")]
         public async void Start()
         {
-            await MQTTListener.Handle_Received_Application_Message();
+            await MQTTListener.ListenAndProcessAsync();
         }
     }
 }

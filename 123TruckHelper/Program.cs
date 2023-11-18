@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using _123TruckHelper;
-using _123TruckHelper.Controllers;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Services;
+using _123TruckHelper.Ingestion;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +29,7 @@ builder.Services.AddDbContext<TruckHelperDbContext>(options =>
 
 // DI
 builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddTransient<IDataIngestionService, DataIngestionService>();
 
 var app = builder.Build();
 
@@ -45,6 +46,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-MQTTListener.Handle_Received_Application_Message();
+// MQTT listener
+MQTTListener.InitializeServiceProvider(app.Services);
+MQTTListener.ListenAndProcessAsync();
 
 app.Run();
