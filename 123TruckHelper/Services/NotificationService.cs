@@ -23,5 +23,20 @@ namespace _123TruckHelper.Services
                 .Select(n => n.Convert())
                 .ToListAsync();
         }
+
+        public async Task RespondToNotificationAsync(int notificationId, bool accepted)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            var notif = await dbContext.Notifications
+                .Where(n => n.Id == notificationId)
+                .SingleOrDefaultAsync();
+
+            notif.Accepted = accepted;
+
+            await dbContext.SaveChangesAsync();
+            return;
+        }
     }
 }

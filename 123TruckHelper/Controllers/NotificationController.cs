@@ -24,5 +24,10 @@ namespace _123TruckHelper.Controllers
         {
             return await _notificationService.GetAllNotificationsAsync();
         }
+
+        public async Task RespondToNotificationAsync(int notificationId, bool accepted)
+        {
+            await _notificationService.RespondToNotificationAsync(notificationId, accepted);
+        }
     }
 }
