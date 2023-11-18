@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using _123TruckHelper;
 using _123TruckHelper.Controllers;
+using _123TruckHelper.Models.EF;
+using _123TruckHelper.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,9 @@ builder.Services.AddDbContext<TruckHelperDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("DbConnection"));
 });
+
+// DI
+builder.Services.AddTransient<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
