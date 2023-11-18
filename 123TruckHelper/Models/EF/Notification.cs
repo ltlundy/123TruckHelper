@@ -17,5 +17,10 @@ namespace _123TruckHelper.Models.EF
         public Load Load { get; set; }
 
         public bool Accepted { get; set; }
+
+        /// <summary>
+        /// For soft deletes
+        /// </summary>
+        public bool Inactive { get; set; } = false;
     }
 }
