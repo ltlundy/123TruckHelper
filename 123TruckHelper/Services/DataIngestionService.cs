@@ -1,5 +1,6 @@
 ﻿using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace _123TruckHelper.Services
@@ -52,7 +53,21 @@ namespace _123TruckHelper.Services
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
-            await dbContext.Trucks.AddAsync(truck);
+            var existing_truck = await dbContext.Trucks.Where(t => t.TruckId == truck.TruckId).SingleOrDefaultAsync();
+
+            if (existing_truck != null)
+            {
+                if (!existing_truck.Busy)
+                {
+                    existing_truck.PositionLatitude = truck.PositionLatitude;
+                    existing_truck.PositionLongitude = truck.PositionLongitude;
+                    existing_truck.NextTripLengthPreference = truck.NextTripLengthPreference;
+                }
+            }
+            else
+            {
+                await dbContext.Trucks.AddAsync(truck);
+            }
             await dbContext.SaveChangesAsync();
         }
 
