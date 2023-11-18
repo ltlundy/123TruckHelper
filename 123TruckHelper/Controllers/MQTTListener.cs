@@ -2,11 +2,17 @@
 using MQTTnet.Client;
 using MQTTnet.Packets;
 using MQTTnet.Protocol;
+using System.Text;
 
-namespace _123TruckHelper
+namespace _123TruckHelper.Controllers
 {
     public class MQTTListener
     {
+        //public static async Task Main(string[] args)
+        //{
+        //    await Handle_Received_Application_Message();
+        //}
+
         public static async Task Handle_Received_Application_Message()
         {
             /*
@@ -19,7 +25,7 @@ namespace _123TruckHelper
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                    .WithTcpServer("fortuitous-welder.cloudmqtt.com", 1883)
-                   .WithClientId("(TEAMNAME)")
+                   .WithClientId("nick-triantos")
                    .WithCredentials("CodeJamUser", "123CodeJam")
                    .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                    .WithCleanSession(true)
@@ -31,6 +37,8 @@ namespace _123TruckHelper
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
                     Console.WriteLine("Received application message.");
+                    string jsonPayload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                    Console.WriteLine(jsonPayload);
 
                     return Task.CompletedTask;
                 };

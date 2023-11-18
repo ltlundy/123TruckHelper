@@ -29,5 +29,11 @@ namespace _123TruckHelper.Controllers
             })
             .ToArray();
         }
+
+        [HttpPost(Name = "Start")]
+        public async void Start()
+        {
+            await MQTTListener.Handle_Received_Application_Message();
+        }
     }
 }

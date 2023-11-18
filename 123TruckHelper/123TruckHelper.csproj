@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>_123TruckHelper</RootNamespace>
+    <UserSecretsId>a0a9abb3-ca32-4cfc-9bf0-228eae725fbf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
     </PackageReference>
     <PackageReference Include="MQTTnet" Version="4.3.1.873" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EF\" />
   </ItemGroup>
 
 </Project>
