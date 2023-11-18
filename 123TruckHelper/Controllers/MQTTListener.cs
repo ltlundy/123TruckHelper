@@ -7,6 +7,11 @@ namespace _123TruckHelper.Controllers
 {
     public class MQTTListener
     {
+        //public static async Task Main(string[] args)
+        //{
+        //    await Handle_Received_Application_Message();
+        //}
+
         public static async Task Handle_Received_Application_Message()
         {
             /*

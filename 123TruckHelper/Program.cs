@@ -1,3 +1,7 @@
+using _123TruckHelper;
+using _123TruckHelper.Controllers;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,3 +27,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+MQTTListener.Handle_Received_Application_Message();
