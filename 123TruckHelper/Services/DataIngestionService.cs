@@ -83,15 +83,15 @@ namespace _123TruckHelper.Services
 
         private async Task HandleDayStart()
         {
-            await DeleteAllData();
+            await MarkDataInactive();
         }
 
         private async Task HandleDayEnd()
         {
-            await DeleteAllData();
+            await MarkDataInactive();
         }
 
-        private async Task DeleteAllData()
+        private async Task MarkDataInactive()
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
