@@ -10,11 +10,13 @@ namespace _123TruckHelper.Services
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ITruckService _TruckService;
+        private readonly ILoadService _LoadService;
 
-        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService)
+        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService, ILoadService loadService)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _TruckService = truckService;
+            _LoadService = loadService;
         }
 
         public async Task ParseAndSaveMessage(string json)
@@ -64,13 +66,9 @@ namespace _123TruckHelper.Services
                 Converters = { new EquipTypeConverter(), new TripLengthConverter() }
             };
 
-            var load = JsonSerializer.Deserialize<Load>(json, jsonSerializerOptions);
+            var load = JsonSerializer.Deserialize<LoadData>(json, jsonSerializerOptions);
 
-            using var scope = _serviceScopeFactory.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
-
-            await dbContext.Loads.AddAsync(load);
-            await dbContext.SaveChangesAsync();
+            await _LoadService.AddLoadAsync(load);
         }
     }
 }
