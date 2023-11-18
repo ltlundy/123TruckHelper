@@ -3,7 +3,7 @@ using MQTTnet.Client;
 using MQTTnet.Packets;
 using MQTTnet.Protocol;
 
-namespace _123TruckHelper
+namespace _123TruckHelper.Controllers
 {
     public class MQTTListener
     {
