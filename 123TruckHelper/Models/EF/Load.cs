@@ -1,13 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _123TruckHelper.Models.EF
 {
     public class Load
     {
         /// <summary>
-        /// This is the ID provided by 123LB.
+        /// Our own internal Id
         /// </summary>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// This is the ID provided by 123LB.
+        /// </summary>
         public int LoadId { get; set; }
 
         public double OriginLatitude { get; set; }
@@ -23,5 +30,10 @@ namespace _123TruckHelper.Models.EF
         public decimal Price { get; set; }
 
         public decimal Mileage { get; set; }
+
+        /// <summary>
+        /// For soft deletes
+        /// </summary>
+        public bool Inactive { get; set; } = false;
     }
 }

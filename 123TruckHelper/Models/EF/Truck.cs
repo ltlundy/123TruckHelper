@@ -6,9 +6,15 @@ namespace _123TruckHelper.Models.EF
     public class Truck
     {
         /// <summary>
-        /// This is the ID provided by 123LB
+        /// Our own internal Id
         /// </summary>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// This is the ID provided by 123LB
+        /// </summary>
         public int TruckId { get; set; }
 
         public double PositionLatitude { get; set; }
@@ -22,6 +28,11 @@ namespace _123TruckHelper.Models.EF
         /// <summary>
         /// Whether the trucker is currently carrying a load
         /// </summary>
-        public bool Busy { get; set; }
+        public bool Busy { get; set; } = false;
+
+        /// <summary>
+        /// For soft deletes
+        /// </summary>
+        public bool Inactive { get; set; } = false;
     }
 }

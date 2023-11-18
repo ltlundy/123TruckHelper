@@ -19,25 +19,23 @@ namespace _123TruckHelper.Services
             var root = document.RootElement;
 
             // if it has a truckId, it's a truck
-            var isTruck = root.TryGetProperty("truckId", out _);
-            var isLoad = root.TryGetProperty("loadId", out _);
             var type = root.GetProperty("type").GetString();
 
             try
             {
-                if (isTruck)
+                if (type == "Truck")
                 {
                     await ParseAndSaveTruck(json);
                 }
-                else if (isLoad)
+                else if (type == "Load")
                 {
                     await ParseAndSaveLoad(json);
                 }
-                else if (type.Equals("Start"))
+                else if (type == "Start")
                 {
                     await HandleDayStart();
                 }
-                else if (type.Equals("End"))
+                else if (type == "End")
                 {
                     await HandleDayEnd();
                 }
@@ -100,17 +98,17 @@ namespace _123TruckHelper.Services
 
             foreach (var load in dbContext.Loads)
             {
-                dbContext.Loads.Remove(load);
+                load.Inactive = true;
             }
 
             foreach (var truck in dbContext.Trucks)
             {
-                dbContext.Trucks.Remove(truck);
+                truck.Inactive = true;
             }
 
             foreach (var notification in dbContext.Notifications)
             {
-                dbContext.Notifications.Remove(notification);
+                notification.Inactive = true;
             }
 
             await dbContext.SaveChangesAsync();
