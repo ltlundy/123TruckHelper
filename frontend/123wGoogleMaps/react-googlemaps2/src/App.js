@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { Navibar } from "./components/Frame.js";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -27,13 +28,16 @@ const App = () => {
 
   return (
     <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={10}
-        center={center}
-      >
-        <Marker position={center} />
-      </GoogleMap>
+      <Navibar />
+      <div>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={10}
+          center={center}
+        >
+          <Marker position={center} />
+        </GoogleMap>
+      </div>
     </div>
   );
 };
