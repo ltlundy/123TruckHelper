@@ -45,6 +45,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
-
 MQTTListener.Handle_Received_Application_Message();
+
+app.Run();
