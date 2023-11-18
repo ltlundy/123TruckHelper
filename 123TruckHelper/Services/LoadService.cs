@@ -1,6 +1,7 @@
 ﻿using _123TruckHelper.Models.Data;
 using _123TruckHelper.Models.EF;
-using Microsoft.Extensions.DependencyInjection;
+using _123TruckHelper.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace _123TruckHelper.Services
 {
@@ -31,6 +32,19 @@ namespace _123TruckHelper.Services
 
             await dbContext.Loads.AddAsync(load);
             await dbContext.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<LoadData> GetLoadAsync(int loadId)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            var load = await dbContext.Loads
+                .Where(l => l.LoadId == loadId)
+                .SingleOrDefaultAsync();
+
+            return load.Convert();
         }
     }
 }

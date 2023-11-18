@@ -26,7 +26,7 @@ namespace _123TruckHelper.Ingestion
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                    .WithTcpServer("fortuitous-welder.cloudmqtt.com", 1883)
-                   .WithClientId("nick-t")
+                   .WithClientId("nick-t1122")
                    .WithCredentials("CodeJamUser", "123CodeJam")
                    .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                    .WithCleanSession(true)

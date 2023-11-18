@@ -8,10 +8,12 @@ namespace _123TruckHelper.Services
     public class NotificationService : INotificationService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ILoadService _loadService;
 
-        public NotificationService(IServiceScopeFactory serviceScopeFactory)
+        public NotificationService(IServiceScopeFactory serviceScopeFactory, ILoadService loadService)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _loadService = loadService;
         }
 
         public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
@@ -22,6 +24,15 @@ namespace _123TruckHelper.Services
             return await dbContext.Notifications
                 .Select(n => n.Convert())
                 .ToListAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task NotifyEligibleDriversAsync(int loadId)
+        {
+            var load = await _loadService.GetLoadAsync(loadId);
+
+            // keep sending notifications until we run out of drivers or someone accepts
+            
         }
     }
 }
