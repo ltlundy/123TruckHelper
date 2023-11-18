@@ -2,3 +2,5 @@
 *.bin
 *\bin
 *\obj
+
+frontend/123wGoogleMaps/node_modules

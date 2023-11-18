@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+./node_modules
+
+frontend/123wGoogleMaps/node_modules
