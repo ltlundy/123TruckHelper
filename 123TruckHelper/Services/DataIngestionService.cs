@@ -13,13 +13,15 @@ namespace _123TruckHelper.Services
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task ParseAndSaveMessage(string json)
+        public async Task ParseMessageAndTakeAction(string json)
         {
             var document = JsonDocument.Parse(json);
             var root = document.RootElement;
 
             // if it has a truckId, it's a truck
             var isTruck = root.TryGetProperty("truckId", out _);
+            var isLoad = root.TryGetProperty("loadId", out _);
+            var type = root.GetProperty("type").GetString();
 
             try
             {
@@ -27,9 +29,17 @@ namespace _123TruckHelper.Services
                 {
                     await ParseAndSaveTruck(json);
                 }
-                else
+                else if (isLoad)
                 {
                     await ParseAndSaveLoad(json);
+                }
+                else if (type.Equals("Start"))
+                {
+                    await HandleDayStart();
+                }
+                else if (type.Equals("End"))
+                {
+                    await HandleDayEnd();
                 }
             }
 
@@ -70,6 +80,39 @@ namespace _123TruckHelper.Services
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
             await dbContext.Loads.AddAsync(load);
+            await dbContext.SaveChangesAsync();
+        }
+
+        private async Task HandleDayStart()
+        {
+            await DeleteAllData();
+        }
+
+        private async Task HandleDayEnd()
+        {
+            await DeleteAllData();
+        }
+
+        private async Task DeleteAllData()
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            foreach (var load in dbContext.Loads)
+            {
+                dbContext.Loads.Remove(load);
+            }
+
+            foreach (var truck in dbContext.Trucks)
+            {
+                dbContext.Trucks.Remove(truck);
+            }
+
+            foreach (var notification in dbContext.Notifications)
+            {
+                dbContext.Notifications.Remove(notification);
+            }
+
             await dbContext.SaveChangesAsync();
         }
     }

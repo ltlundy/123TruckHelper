@@ -38,7 +38,7 @@ namespace _123TruckHelper.Ingestion
 
                     // read in the message and save the info
                     var dataIngestionService = _serviceProvider.GetRequiredService<IDataIngestionService>();
-                    dataIngestionService.ParseAndSaveMessage(jsonPayload);
+                    dataIngestionService.ParseMessageAndTakeAction(jsonPayload);
 
                     return Task.CompletedTask;
                 };
