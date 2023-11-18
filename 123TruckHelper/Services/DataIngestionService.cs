@@ -13,23 +13,31 @@ namespace _123TruckHelper.Services
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task ParseAndSaveMessage(string json)
+        public async Task ParseMessageAndTakeAction(string json)
         {
             var document = JsonDocument.Parse(json);
             var root = document.RootElement;
 
             // if it has a truckId, it's a truck
-            var isTruck = root.TryGetProperty("truckId", out _);
+            var type = root.GetProperty("type").GetString();
 
             try
             {
-                if (isTruck)
+                if (type == "Truck")
                 {
                     await ParseAndSaveTruck(json);
                 }
-                else
+                else if (type == "Load")
                 {
                     await ParseAndSaveLoad(json);
+                }
+                else if (type == "Start")
+                {
+                    await HandleDayStart();
+                }
+                else if (type == "End")
+                {
+                    await HandleDayEnd();
                 }
             }
 
@@ -70,6 +78,39 @@ namespace _123TruckHelper.Services
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
             await dbContext.Loads.AddAsync(load);
+            await dbContext.SaveChangesAsync();
+        }
+
+        private async Task HandleDayStart()
+        {
+            await MarkDataInactive();
+        }
+
+        private async Task HandleDayEnd()
+        {
+            await MarkDataInactive();
+        }
+
+        private async Task MarkDataInactive()
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            foreach (var load in dbContext.Loads)
+            {
+                load.Inactive = true;
+            }
+
+            foreach (var truck in dbContext.Trucks)
+            {
+                truck.Inactive = true;
+            }
+
+            foreach (var notification in dbContext.Notifications)
+            {
+                notification.Inactive = true;
+            }
+
             await dbContext.SaveChangesAsync();
         }
     }

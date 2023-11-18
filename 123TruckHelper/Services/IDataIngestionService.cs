@@ -4,6 +4,6 @@ namespace _123TruckHelper.Services
 {
     public interface IDataIngestionService
     {
-        Task ParseAndSaveMessage(String json);
+        Task ParseMessageAndTakeAction(String json);
     }
 }
