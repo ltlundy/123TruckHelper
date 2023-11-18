@@ -1,13 +1,13 @@
 import React from "react";
 import { Navibar } from "../components/Frame.js";
 
-function Admin() {
+function Trucker() {
   return (
     <div>
       <Navibar />
-      <h1>Admin Page</h1>
+      <h1>Trucker Page</h1>
     </div>
   );
 }
 
-export default Admin;
+export default Trucker;

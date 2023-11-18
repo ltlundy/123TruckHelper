@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import Admin from "./pages/Admin";
+import Trucker from "./pages/Trucker";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; // Fixed missing bootstrap styling
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/trucker",
+    element: <Trucker />,
   },
 ]);
 
