@@ -1,5 +1,7 @@
-﻿using _123TruckHelper.Models.EF;
+﻿using _123TruckHelper.Models.Data;
+using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace _123TruckHelper.Services
@@ -7,10 +9,14 @@ namespace _123TruckHelper.Services
     public class DataIngestionService : IDataIngestionService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ITruckService _TruckService;
+        private readonly ILoadService _LoadService;
 
-        public DataIngestionService(IServiceScopeFactory serviceScopeFactory)
+        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService, ILoadService loadService)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _TruckService = truckService;
+            _LoadService = loadService;
         }
 
         public async Task ParseMessageAndTakeAction(string json)
@@ -55,13 +61,9 @@ namespace _123TruckHelper.Services
                 Converters = { new EquipTypeConverter(), new TripLengthConverter() }
             };
 
-            var truck = JsonSerializer.Deserialize<Truck>(json, jsonSerializerOptions);
+            var truck = JsonSerializer.Deserialize<TruckData>(json, jsonSerializerOptions);
 
-            using var scope = _serviceScopeFactory.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
-
-            await dbContext.Trucks.AddAsync(truck);
-            await dbContext.SaveChangesAsync();
+            await _TruckService.CreateOrUpdateTruckAsync(truck);
         }
 
         private async Task ParseAndSaveLoad(string json)
@@ -72,13 +74,9 @@ namespace _123TruckHelper.Services
                 Converters = { new EquipTypeConverter(), new TripLengthConverter() }
             };
 
-            var load = JsonSerializer.Deserialize<Load>(json, jsonSerializerOptions);
+            var load = JsonSerializer.Deserialize<LoadData>(json, jsonSerializerOptions);
 
-            using var scope = _serviceScopeFactory.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
-
-            await dbContext.Loads.AddAsync(load);
-            await dbContext.SaveChangesAsync();
+            await _LoadService.AddLoadAsync(load);
         }
 
         private async Task HandleDayStart()
