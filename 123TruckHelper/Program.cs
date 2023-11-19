@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using _123TruckHelper;
+using _123TruckHelper.Ingestion;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Services;
-using _123TruckHelper.Ingestion;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,14 +33,19 @@ builder.Services.AddTransient<ILoadService, LoadService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable CORS
+app.UseCors(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
 
-app.UseHttpsRedirection();
+// Remove HTTPS redirection
+// app.UseHttpsRedirection();
+
+// Remove SSL certificate validation
+// ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
 app.UseAuthorization();
 
