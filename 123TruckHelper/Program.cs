@@ -22,7 +22,8 @@ builder.Services.AddScoped<TruckHelperDbContext>();
 // not sure if we need both of these, but leaving it for now
 builder.Services.AddDbContext<TruckHelperDbContext>(options =>
 {
-    options.UseSqlServer(configuration.GetConnectionString("DbConnection"));
+    options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
+        options => options.EnableRetryOnFailure());
 });
 
 // DI

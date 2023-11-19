@@ -117,22 +117,24 @@ namespace _123TruckHelper.Services
                     .ToList()
                     .OrderByDescending(t => CalculateProfit(t, load));
 
-                var truckIdsWithLessThan5Notifs = dbContext.Notifications
+                var truckIdsWith5OrMoreNotifs = dbContext.Notifications
                     .Include(n => n.Truck)
                     .Where(n => n.Status == NotificationStatus.Sent && !n.Inactive)
                     .ToList()
                     .GroupBy(n => n.Truck.TruckId)
-                    .Where(g => g.Count() < 5)
+                    .Where(g => g.Count() >= 4)
                     .Select(g => g.Key);
 
                 var toNotify = trucksThatCanCarry
-                    .Where(t => truckIdsWithLessThan5Notifs.Contains(t.TruckId))
+                    .Where(t => !truckIdsWith5OrMoreNotifs.Contains(t.TruckId))
                     .Take(5)
                     .ToList();
 
                 foreach (var truck in toNotify)
                 {
                     var profit = CalculateProfit(truck, load);
+
+                    Console.WriteLine("Sending a notification.");
 
                     var notification = new Notification {
                         Timestamp = DateTimeOffset.Now,
