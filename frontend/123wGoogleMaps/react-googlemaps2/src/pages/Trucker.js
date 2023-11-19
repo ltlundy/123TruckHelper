@@ -119,14 +119,14 @@ const Trucker = () => {
                   <Card style={{ width: '18rem', padding: '15px', height: '30rem'}}>
                     <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
                     <Card.Body>
-                      <Card.Title>Est. Profit : {post.profit}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDist}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
+                      <Card.Title>Est. Profit : ${post.profit}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDist}mi <br/>Gross Revenue : ${post.revenue}</Card.Subtitle>
                       <Card.Text>
                         Start of route : {post.origLat} {post.origLon}<br />
                         End of route : {post.destLat} {post.destLon}<br />
-                        Distance to Start : {post.distToStart}km
+                        Distance to Start : {post.distToStart}mi
                       </Card.Text>
-                      <Button variant="primary">Go somewhere</Button>
+                      <Button variant="primary" style = {{ position:'absolute', bottom:'5rem'}}>Go somewhere</Button>
                     </Card.Body>
                     <Card.Footer>Message ID = {post.notificationID}</Card.Footer>
                   </Card>
