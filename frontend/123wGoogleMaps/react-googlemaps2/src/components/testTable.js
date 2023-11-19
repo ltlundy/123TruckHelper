@@ -3,8 +3,16 @@ import DataTable from 'react-data-table-component';
 
 const columns = [
   {
+    name: "Load ID", 
+    selector:(row)=> row.loadId,
+  },
+  {
     name: 'Truck ID',
     selector: (row) => row.truckId,
+  },
+  {
+    name: 'Notification Timestamp',
+    selector: (row) => row.timestamp,
   },
   {
     name: 'Revenue',
@@ -27,173 +35,13 @@ const columns = [
     selector: (row) => row.tripDist,
   },
   {
-    name: 'Driver Current Location (Latitude, Longitude)',
-    selector: (row) => row.currentLocation,
-  },
-  {
     name: 'Driver Distance to Load Origin',
     selector: (row) => row.distToStart,
-  },
+  }
 ];
 
-const data = [
-    {
-        truckId: 1,
-        revenue: 10000,
-        profit: 8000,
-        origLat: 'OriginLat 1',
-        origLon: 'OriginLong1',
-        destLat: 'DestinationLat1',
-        destLon: 'DesinationLong1',
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 2,
-        revenue: 12000,
-        profit: 9500,
-        origLat: 'Origin 2',
-        origLon: 'origin 2',
-        destLat: 'Destination 2',
-        destLong: 'origin 2',
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }, 
-    {
-        truckId: 3,
-        revenue: 10000,
-        profit: 8000,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 4,
-        revenue: 12000,
-        profit: 9500,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }, 
-    {
-        truckId: 5,
-        revenue: 10000,
-        profit: 8000,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 6,
-        revenue: 12000,
-        profit: 9500,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }, 
-    {
-        truckId: 7,
-        revenue: 10000,
-        profit: 8000,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 8,
-        revenue: 12000,
-        profit: 9500,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }, 
-    {
-        truckId: 9,
-        revenue: 10000,
-        profit: 8000,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 10,
-        revenue: 12000,
-        profit: 9500,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }, 
-    {
-        truckId: 11,
-        revenue: 10000,
-        profit: 8000,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '100 miles',
-        currLat: 'Current Location 1',
-        currLon: 0,
-        distToStart: '20 miles',
-    },
-    {
-        truckId: 12,
-        revenue: 12000,
-        profit: 9500,
-        "origLat": 0,
-        "origLon": 0,
-        "destLat": 0,
-        "destLon": 0,
-        tripDist: '150 miles',
-        currLat: 'Current Location 2',
-        currLon: 0,
-        distToStart: '15 miles',
-    }
-];
+const req= await fetch("http://localhost:5016/all");
+const data= await req.json();
 
 const MyDataTable = () => {
   const [searchText, setSearchText] = useState('');
@@ -209,9 +57,8 @@ const MyDataTable = () => {
   for (let i=0; i<filteredData.length; i++) {
     filteredData[i].origin = filteredData[i].origLat + ', ' + filteredData[i].origLon;
     filteredData[i].destination = filteredData[i].destLat + ', ' + filteredData[i].destLon;
-    filteredData[i].currentLocation = filteredData[i].currLat + ', ' + filteredData[i].currLon;
-
   }
+  //const filteredData = data;
   const tableHeaderstyle={
     headCells:{
         style:{
@@ -253,6 +100,7 @@ const MyDataTable = () => {
         columns={columns}
         data={filteredData}
         pagination
+        keyField='truckId'
       />
     </div>
   );

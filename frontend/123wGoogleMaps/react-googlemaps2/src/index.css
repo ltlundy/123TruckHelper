@@ -50,3 +50,8 @@ code {
   white-space: normal !important;
   overflow: visible !important;
 }
+
+.rdt_TableRow div:first-child {
+  white-space: normal !important;
+  overflow: visible !important;
+}
