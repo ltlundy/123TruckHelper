@@ -26,9 +26,12 @@ namespace _123TruckHelper.Services
                 .ToListAsync();
         }
 
-        public async Task GetNotificationsForTruckIDAsync(int truckID)
+        public async Task<IEnumerable<NotificationTruckResponse>> GetNotificationsForTruckIDAsync(int truckID)
         {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
+            return null;
         }
 
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)

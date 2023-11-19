@@ -2,5 +2,23 @@
 {
     public class NotificationTruckResponse
     {
+        public int NotificationID { get; set; }
+
+        public double Revenue { get; set; }
+
+        public double Proft { get; set; }
+
+        public double OrigLat { get; set; }
+
+        public double OrigLon { get; set; }
+
+        public double DestLat { get; set; }
+
+        public double DestLon { get; set; }
+
+        public double TripDist { get; set; }
+
+        public double DistToStart { get; set; }
+
     }
 }

@@ -7,5 +7,7 @@ namespace _123TruckHelper.Services
         Task<List<NotificationResponse>> GetAllNotificationsAsync();
 
         Task<int> RespondToNotificationAsync(int notificationId, bool accepted);
+
+        Task<IEnumerable<NotificationTruckResponse>> GetNotificationsForTruckIDAsync(int truckID);
     }
 }
