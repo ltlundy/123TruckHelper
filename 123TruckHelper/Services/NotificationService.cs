@@ -31,6 +31,10 @@ namespace _123TruckHelper.Services
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
+            var notificationsEF = dbContext.Notifications
+                .Include(n => n.Truck)
+                .Where();
+
             return null;
         }
 
