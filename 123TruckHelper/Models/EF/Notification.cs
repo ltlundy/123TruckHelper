@@ -1,4 +1,4 @@
-﻿using System;
+﻿using _123TruckHelper.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,11 +16,21 @@ namespace _123TruckHelper.Models.EF
 
         public Load Load { get; set; }
 
-        public bool Accepted { get; set; }
+        public NotificationStatus Status { get; set; }
 
         /// <summary>
         /// For soft deletes
         /// </summary>
         public bool Inactive { get; set; } = false;
+
+        /// <summary>
+        /// Distance to the pickup
+        /// </summary>
+        public decimal Mileage { get; set; }
+        
+        /// <summary>
+        /// Profit of the load suggested by this notification (for this particular trucker)
+        /// </summary>
+        public decimal Profit { get; set; }
     }
 }

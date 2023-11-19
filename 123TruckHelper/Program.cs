@@ -52,4 +52,8 @@ app.MapControllers();
 MQTTListener.InitializeServiceProvider(app.Services);
 MQTTListener.ListenAndProcessAsync();
 
+// Automatic notification sender
+NotificationManager.InitializeServiceProvider(app.Services);
+NotificationManager.Manage();
+
 app.Run();

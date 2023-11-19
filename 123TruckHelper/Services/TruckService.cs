@@ -13,6 +13,40 @@ namespace _123TruckHelper.Services
             _serviceScopeFactory = serviceScopeFactory;
         }
 
+        public async Task<TruckData> GetTruckLocationAsync(int truckID)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            var truck = await dbContext.Trucks.Where(t => t.TruckId == truckID).SingleAsync();
+
+            var truckData = new TruckData
+            {
+                PositionLatitude = truck.PositionLatitude,
+                PositionLongitude = truck.PositionLongitude,
+            };
+            
+            return truckData;
+        }
+
+        /// <summary>
+        /// This method exists because Nick messed up something with foreign keys in db and we ended up with the wrong id
+        /// </summary>
+        /// <param name="internalId">Internal (not123LB) truck id</param>
+        /// <returns></returns>
+        public async Task<int> GetCorrectTruckId(int internalId)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            var truckIdToUse = await dbContext.Trucks
+                .Where(t => t.Id == internalId)
+                .Select(t => t.TruckId)
+                .SingleOrDefaultAsync();
+
+            return truckIdToUse;
+        }
+
         public async Task CreateOrUpdateTruckAsync(TruckData truckData)
         {
             using var scope = _serviceScopeFactory.CreateScope();

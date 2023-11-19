@@ -12,8 +12,8 @@ using _123TruckHelper.Models.EF;
 namespace _123TruckHelper.Migrations
 {
     [DbContext(typeof(TruckHelperDbContext))]
-    [Migration("20231118202015_mig1")]
-    partial class mig1
+    [Migration("20231119032214_redbull")]
+    partial class redbull
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,9 @@ namespace _123TruckHelper.Migrations
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LoadId")
                         .HasColumnType("int");
 
@@ -59,6 +62,9 @@ namespace _123TruckHelper.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("TruckId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Loads");
@@ -72,13 +78,19 @@ namespace _123TruckHelper.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Accepted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
                     b.Property<int>("LoadId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Mileage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Profit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Timestamp")

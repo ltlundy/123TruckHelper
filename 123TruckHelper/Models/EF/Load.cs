@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace _123TruckHelper.Models.EF
 {
@@ -35,5 +36,12 @@ namespace _123TruckHelper.Models.EF
         /// For soft deletes
         /// </summary>
         public bool Inactive { get; set; } = false;
+
+        public bool IsAvailable { get; set; } = false;
+
+        /// <summary>
+        /// Not officially a foreign key, but fine right now. We were having some issues.
+        /// </summary>
+        public int TruckId { get; set; }
     }
 }

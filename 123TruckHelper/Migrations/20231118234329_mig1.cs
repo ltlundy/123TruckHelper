@@ -23,7 +23,9 @@ namespace _123TruckHelper.Migrations
                     EquipmentType = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Mileage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Inactive = table.Column<bool>(type: "bit", nullable: false)
+                    Inactive = table.Column<bool>(type: "bit", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    TruckId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

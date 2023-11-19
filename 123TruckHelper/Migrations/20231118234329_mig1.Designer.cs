@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _123TruckHelper.Models.EF;
 
@@ -11,9 +12,10 @@ using _123TruckHelper.Models.EF;
 namespace _123TruckHelper.Migrations
 {
     [DbContext(typeof(TruckHelperDbContext))]
-    partial class TruckHelperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118234329_mig1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,19 +78,13 @@ namespace _123TruckHelper.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool>("Accepted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
                     b.Property<int>("LoadId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Mileage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Profit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Timestamp")
