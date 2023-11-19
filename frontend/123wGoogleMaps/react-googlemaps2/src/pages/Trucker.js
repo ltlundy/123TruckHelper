@@ -34,8 +34,9 @@ const Trucker = () => {
 
   useEffect(() => {
     const pollingCallback = () => {
-      // fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
-      fetch('http://localhost:8000/datum')
+      // fetch('https://jsonplaceholder.typicode.com/posts?_limit=10') // placeholder
+      // fetch('http://localhost:8000/datum') // MOCK API FOR TESTING
+      fetch('https://localhost:7041/Notification/truck/342') // REAL API DOT NET
          .then((response) => response.json())
          .then((data) => {
             console.log(data); // DEBUGGING
@@ -93,21 +94,41 @@ const Trucker = () => {
         <div className="flex-container">
           <CardGroup>
             {posts2.map((post) => {
+              // MOCK API notification testing
+              // return (
+              //   <div key={post.id} className="flex-item">
+              //     <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
+              //       <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
+              //       <Card.Body>
+              //         <Card.Title>Est. Profit : {post.profit}</Card.Title>
+              //         <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
+              //         <Card.Text>
+              //           Start of route : {post.startLocation} <br />
+              //           End of route : {post.endLocation} <br />
+              //           Distance to Start : {post.distanceToStart}km
+              //         </Card.Text>
+              //         <Button variant="primary">Go somewhere</Button>
+              //       </Card.Body>
+              //       <Card.Footer>Message ID = {post.id}</Card.Footer>
+              //     </Card>
+              //   </div>
+              // );
+              // REAL return for notifications
               return (
-                <div key={post.id} className="flex-item">
+                <div key={post.notificationID} className="flex-item">
                   <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
                     <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
                     <Card.Body>
                       <Card.Title>Est. Profit : {post.profit}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDist}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
                       <Card.Text>
-                        Start of route : {post.startLocation} <br />
-                        End of route : {post.endLocation} <br />
-                        Distance to Start : {post.distanceToStart}km
+                        Start of route : {post.origLat} {post.origLon}<br />
+                        End of route : {post.destLat} {post.destLon}<br />
+                        Distance to Start : {post.distToStart}km
                       </Card.Text>
                       <Button variant="primary">Go somewhere</Button>
                     </Card.Body>
-                    <Card.Footer>Message ID = {post.id}</Card.Footer>
+                    <Card.Footer>Message ID = {post.notificationID}</Card.Footer>
                   </Card>
                 </div>
               );
