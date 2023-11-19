@@ -130,7 +130,7 @@ namespace _123TruckHelper.Services
                     .Take(5)
                     .ToList();
 
-                foreach (var truck in trucksThatCanCarry)
+                foreach (var truck in toNotify)
                 {
                     var profit = CalculateProfit(truck, load);
 
