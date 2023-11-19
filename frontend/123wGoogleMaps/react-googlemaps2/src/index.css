@@ -27,3 +27,20 @@ code {
   /* Then we define how is distributed the remaining space */
   justify-content: space-around;
 }
+.my-data-table-container {
+  text-align: center;
+}
+
+.my-data-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.title {
+  margin: 0;
+}
+
+.search-bar {
+  margin-left: auto;
+}
