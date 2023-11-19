@@ -18,12 +18,12 @@ export function MyComponent() {
       console.log('Polling...');
 
       // Simulating an API failure in the polling callback
-    //   const shouldFail = Math.random() < 0.2; // Simulate 20% chance of API failure
+      const shouldFail = Math.random() < 0.2; // Simulate 20% chance of API failure
 
-    //   if (shouldFail) {
-    //     setIsPollingEnabled(false);
-    //     console.log('Polling failed. Stopped polling.');
-    //   }
+      if (shouldFail) {
+        setIsPollingEnabled(false);
+        console.log('Polling failed. Stopped polling.');
+      }
     };
 
     const startPolling = () => {

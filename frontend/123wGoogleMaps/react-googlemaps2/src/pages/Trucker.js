@@ -55,7 +55,7 @@ const Trucker = () => {
     const stopPolling = () => {
       clearInterval(timerIdRef.current);
     };
-
+// only polls if webpage is currently viewed! Doesn't fetch if ex. window is minimized!
     if (isPageVisible) {
       startPolling();
     } else {
