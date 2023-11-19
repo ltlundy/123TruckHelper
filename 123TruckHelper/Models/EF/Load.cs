@@ -37,9 +37,11 @@ namespace _123TruckHelper.Models.EF
         /// </summary>
         public bool Inactive { get; set; } = false;
 
-        public bool IsAvaiable { get; set; } = false;
+        public bool IsAvailable { get; set; } = false;
 
-        [AllowNull]
-        public Truck Truck { get; set; } = null;
+        /// <summary>
+        /// Not officially a foreign key, but fine right now. We were having some issues.
+        /// </summary>
+        public int TruckId { get; set; }
     }
 }
