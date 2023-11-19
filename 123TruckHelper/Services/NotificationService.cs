@@ -36,7 +36,9 @@ namespace _123TruckHelper.Services
             var notificationsEF = await dbContext.Notifications
                 .Include(n => n.Truck)
                 .Include(n => n.Load)
-                .Where(n => n.Truck.TruckId == truckID && n.Status == NotificationStatus.Sent)
+                .Where(n => n.Truck.TruckId == truckID && n.Status == NotificationStatus.Sent && !n.Inactive)
+                .OrderByDescending(n => n.Profit)
+                .ThenBy(n => n.Mileage) // ordering by profit then distance to get there
                 .ToListAsync();
             return notificationsEF.Select(notificationEF => new NotificationTruckResponse
             {

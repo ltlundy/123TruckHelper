@@ -24,7 +24,7 @@ namespace _123TruckHelper.Models.EF
         public bool Inactive { get; set; } = false;
 
         /// <summary>
-        /// Mileage of the load suggested by this notification (for this particular trucker)
+        /// Distance to the pickup
         /// </summary>
         public decimal Mileage { get; set; }
         
