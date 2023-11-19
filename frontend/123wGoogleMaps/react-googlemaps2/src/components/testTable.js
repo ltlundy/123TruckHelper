@@ -175,23 +175,21 @@ const MyDataTable = () => {
     headCells:{
         style:{
             fontWeight:"bold",
-            fontSize:"14px",
-            backgroundColor:"#ccc"
+            fontSize:"18px",
+            backgroundColor:"#666"
 
         },
     },
-    title: {
+    header: {
         style: {
             fontWeight: "bold",
-            fontSize: "24px"
+            fontSize: "34px"
         },
     },
-    bodyCells: {
-        style:{
-            fontWeight:"bold",
+    cells: {
+        style: {
             fontSize:"14px",
-            backgroundColor:"#FFF"
-
+            backgroundColor:"#d3d3d3"
         },
     },
    }
