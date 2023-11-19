@@ -150,6 +150,24 @@ namespace _123TruckHelper.Services
                         Profit = profit
                     };
 
+                    try
+                    {
+                        if (truck.PhoneNumber != null)
+                        {
+                            var top_notif = await dbContext.Notifications.Include(n => n.Truck)
+                                .Where(n => n.Truck.Id == truck.Id && n.Status == NotificationStatus.Sent && !n.Inactive)
+                                .OrderByDescending(n => n.Profit)
+                                .FirstOrDefaultAsync();
+
+                            if (top_notif != null && top_notif.Profit < notification.Profit)
+                            {
+                                NotifyNumberOneTrucker(truck, notification);
+                            }
+                        }
+                    } catch (Exception ex)
+                    {
+                    }
+
                     await dbContext.Notifications.AddAsync(notification);
                 }
 
