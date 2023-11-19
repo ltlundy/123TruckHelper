@@ -3,6 +3,7 @@ using _123TruckHelper;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Services;
 using _123TruckHelper.Ingestion;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
 app.UseAuthorization();
 
