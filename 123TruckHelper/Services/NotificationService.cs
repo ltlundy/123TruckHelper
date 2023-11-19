@@ -79,28 +79,26 @@ namespace _123TruckHelper.Services
             {
                 var isShort = load.Mileage < 200;
 
-                // Fetch necessary data from the database
-                var toNotifyQuery = dbContext.Trucks
+                var trucksThatCanCarry = dbContext.Trucks
+                    .ToList()
                     .Where(t => !t.Busy)
                     .Where(t => (t.NextTripLengthPreference == TripLength.Short) == isShort)
                     .Where(t => t.EquipType == load.EquipmentType)
                     .OrderByDescending(t => CalculateProfit(t, load))
                     .Take(5);
 
-                var trucksToNotify = await toNotifyQuery.ToListAsync();
-
-                var truckIdsWithLessThan5Notifs = await dbContext.Notifications
+                var truckIdsWithLessThan5Notifs = dbContext.Notifications
+                    .ToList()
                     .Where(n => n.Status == NotificationStatus.Sent && !n.Inactive)
                     .GroupBy(n => n.Truck.TruckId)
                     .Where(g => g.Count() < 5)
-                    .Select(g => g.Key)
-                    .ToListAsync();
+                    .Select(g => g.Key);
 
-                var toNotify = trucksToNotify
+                var toNotify = trucksThatCanCarry
                     .Where(t => truckIdsWithLessThan5Notifs.Contains(t.TruckId))
                     .ToList();
 
-                foreach (var truck in toNotify)
+                foreach (var truck in trucksThatCanCarry)
                 {
                     var notification = new Notification {
                         Timestamp = DateTimeOffset.Now,
