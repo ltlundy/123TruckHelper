@@ -80,16 +80,17 @@ namespace _123TruckHelper.Services
                 var isShort = load.Mileage < 200;
 
                 var trucksThatCanCarry = dbContext.Trucks
-                    .ToList()
                     .Where(t => !t.Busy)
                     .Where(t => (t.NextTripLengthPreference == TripLength.Short) == isShort)
                     .Where(t => t.EquipType == load.EquipmentType)
+                    .ToList()
                     .OrderByDescending(t => CalculateProfit(t, load))
                     .Take(5);
 
                 var truckIdsWithLessThan5Notifs = dbContext.Notifications
-                    .ToList()
+                    .Include(n => n.Truck)
                     .Where(n => n.Status == NotificationStatus.Sent && !n.Inactive)
+                    .ToList()
                     .GroupBy(n => n.Truck.TruckId)
                     .Where(g => g.Count() < 5)
                     .Select(g => g.Key);
