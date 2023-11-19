@@ -34,7 +34,7 @@ namespace _123TruckHelper.Services
 
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)
         {
-            
+
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
@@ -50,15 +50,16 @@ namespace _123TruckHelper.Services
             }
 
             var status = await _loadService.ClaimLoad(notif.Load.LoadId, notif.Truck.TruckId);
-            
+
             if (status == 202)
             {
-                notif.Accepted = accepted;
+                notif.Status = NotificationStatus.Accepted;
 
                 await dbContext.SaveChangesAsync();
             }
 
             return status;
+        }
         
         /// <inheritdoc/>
         public async Task NotifyOfAvailableLoadsAsync()
