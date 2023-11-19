@@ -6,6 +6,6 @@ namespace _123TruckHelper.Services
     {
         Task AddLoadAsync(LoadData data);
 
-        Task<int> ClaimLoad(int loadId, int truckId); 
+        Task<int> ClaimLoad(int loadId, int truckId);
     }
 }

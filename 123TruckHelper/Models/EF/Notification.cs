@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _123TruckHelper.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +17,7 @@ namespace _123TruckHelper.Models.EF
 
         public Load Load { get; set; }
 
-        public bool Accepted { get; set; }
+        public NotificationStatus Status { get; set; }
 
         /// <summary>
         /// For soft deletes

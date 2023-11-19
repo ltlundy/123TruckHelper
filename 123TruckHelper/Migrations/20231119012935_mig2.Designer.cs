@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _123TruckHelper.Models.EF;
 
@@ -11,9 +12,10 @@ using _123TruckHelper.Models.EF;
 namespace _123TruckHelper.Migrations
 {
     [DbContext(typeof(TruckHelperDbContext))]
-    partial class TruckHelperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119012935_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +44,6 @@ namespace _123TruckHelper.Migrations
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
                     b.Property<int>("LoadId")
                         .HasColumnType("int");
 
@@ -59,9 +58,6 @@ namespace _123TruckHelper.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TruckId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

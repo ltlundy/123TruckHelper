@@ -1,4 +1,5 @@
-﻿using _123TruckHelper.Models.API;
+﻿using _123TruckHelper.Enums;
+using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace _123TruckHelper.Services
 
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)
         {
-            
+
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
@@ -56,15 +57,22 @@ namespace _123TruckHelper.Services
             }
 
             var status = await _loadService.ClaimLoad(notif.Load.LoadId, notif.Truck.TruckId);
-            
+
             if (status == 202)
             {
-                notif.Accepted = accepted;
+                notif.Status = NotificationStatus.Accepted;
 
                 await dbContext.SaveChangesAsync();
             }
 
             return status;
+        }
+        
+        /// <inheritdoc/>
+        public async Task NotifyOfAvailableLoadsAsync()
+        {
+            // will be called by a running background service at some interval
+            // notify people of each load to be merged, up to 3 notifs per driver
         }
     }
 }
