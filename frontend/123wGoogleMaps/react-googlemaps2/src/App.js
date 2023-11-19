@@ -1,43 +1,13 @@
-import React from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React from 'react';
+import LoginPage from "./pages/Login.js"; // Assuming the LoginPage component is in a separate file
 import { Navibar } from "./components/Frame.js";
 
-const libraries = ["places"];
-const mapContainerStyle = {
-  width: "100vw",
-  height: "100vh",
-};
-const center = {
-  lat: 7.2905715, // default latitude
-  lng: 80.6337262, // default longitude
-};
-// console.log("Key is: " + process.env.REACT_APP_GOOGLE_MAPS_KEY)
 const App = () => {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-    libraries,
-  });
-
-  if (loadError) {
-    return <div>Error loading maps</div>;
-  }
-
-  if (!isLoaded) {
-    return <div>Loading maps</div>;
-  }
-
   return (
     <div>
       <Navibar />
-      <div>
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={10}
-          center={center}
-        >
-          <Marker position={center} />
-        </GoogleMap>
-      </div>
+      <h1 style={{textAlign: "center"}}>Welcome to 123TruckHelper</h1>
+      <LoginPage />
     </div>
   );
 };

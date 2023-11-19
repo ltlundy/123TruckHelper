@@ -1,40 +1,33 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-
-export default function NotificationTable()
+export default function Product()
 {
     const columns= [
         {
-            name: "Truck ID", 
-            selector:(row)=> row.truckId
+            name:"Sr.No",
+            selector:(row)=>row.id,
         },
         {
-            name:"Profit",
-            selector:(row)=> row.revenue,
+            name:"Title",
+            selector:(row)=>row.title,
         },
         {
-            name:"Net Profit",
-            selector:(row)=>row.proft,
+            name:"Category",
+            selector:(row)=>row.category,
         },
         {
-            name:"Load Origin",
-            selector:(row)=>row.origLat,
+            name:"Price",
+            selector:(row)=>row.price,
         },
         {
-            name:"Load Destination",
-            selector:(row)=>row.destLat,
+            name:"Image",
+            selector:(row)=><img  height ={70} width={80} src={ row.image}/>,
         },
         {
-            name:"Trip Distance",
-            selector:(row)=>row.tripDist,
-        },
-        {
-            name:"Driver Current Location",
-            selector:(row)=>row.currLat,
-        },
-        {
-            name:"Driver Distance to Origin",
-            selector:(row)=>row.distToStart,
+            name:"Action",
+            cell:(row)=>(
+                <button className="btn btn-danger" onClick={()=>handleDelete(row.id)}>Delete</button>
+            )
         }
 
     ];
@@ -44,61 +37,10 @@ export default function NotificationTable()
 
     const getProduct=async()=>{
     try{
-        // const req= await fetch("https://fakestoreapi.com/products");
-        // const res= await req.json();
-        
-        // for (let i=0; i<res.length; i++) { // use this to put the lat, long
-        //     res[i].distance = res[i].title + ', ' + res[i].id;
-        // }
-        // res = [ 
-
-        // ];
-        const res = [
-            {
-                "truckId": 1,
-                "revenue": 0,
-                "proft": 0,
-                "origLat": 0,
-                "origLon": 0,
-                "destLat": 0,
-                "destLon": 0,
-                "tripDist": 0,
-                "distToStart": 0, 
-                "currLat": 0,
-                "currLon": 0
-            }, 
-            {
-                "truckId": 1,
-                "revenue": 0,
-                "proft": 0,
-                "origLat": 0,
-                "origLon": 0,
-                "destLat": 0,
-                "destLon": 0,
-                "tripDist": 0,
-                "distToStart": 0, 
-                "currLat": 0,
-                "currLon": 0
-            },
-            {
-                "truckId": 1,
-                "revenue": 0,
-                "proft": 0,
-                "origLat": 0,
-                "origLon": 0,
-                "destLat": 0,
-                "destLon": 0,
-                "tripDist": 0,
-                "distToStart": 0, 
-                "currLat": 0,
-                "currLon": 0
-            }
-        ];
-        console.log(res);
+        const req= await fetch("https://fakestoreapi.com/products");
+        const res= await req.json();
         setData(res);
         setFilter(res);
-        console.log(data);
-        console.log(filter);
     } catch(error){
        console.log(error);
     }
@@ -109,10 +51,15 @@ export default function NotificationTable()
 
     useEffect(()=>{
         const result= data.filter((item)=>{
-         return item.truckId.toLowerCase().match(search.toLocaleLowerCase());
+         return item.title.toLowerCase().match(search.toLocaleLowerCase());
         });
         setFilter(result);
     },[search]);
+
+   const handleDelete=(val)=>{
+    const newdata= data.filter((item)=>item.id!==val);
+    setFilter(newdata);
+   }
    
    const tableHeaderstyle={
     headCells:{
@@ -127,15 +74,19 @@ export default function NotificationTable()
 
     return(
         <React.Fragment>
-            <h1 style={{textAlign: "center"}}>Notifications</h1>
+            <h1>Product List</h1>
             <DataTable 
             customStyles={ tableHeaderstyle}
             columns={columns}
             data={filter}
             pagination
+            selectableRows
             fixedHeader
             selectableRowsHighlight
             highlightOnHover
+            actions={
+                <button className="btn btn-success">Export Pdf</button>
+            }
             subHeader
              subHeaderComponent={
                 <input type="text"
