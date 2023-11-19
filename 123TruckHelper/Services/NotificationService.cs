@@ -115,11 +115,6 @@ namespace _123TruckHelper.Services
             }
         }
 
-        private void NotifyOfLoad(Truck truck, Load load)
-        {
-            
-        }
-
         /// <summary>
         /// Calculate the profit for this guy if he takes the load
         /// Purposely not making it async so we can call in lambda
