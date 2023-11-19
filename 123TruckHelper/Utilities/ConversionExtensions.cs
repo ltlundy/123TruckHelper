@@ -12,7 +12,7 @@ namespace _123TruckHelper.Utilities
                 Timestamp = notification.Timestamp,
                 TruckId = notification.Truck.TruckId,
                 LoadId = notification.Load.LoadId,
-                Accepted = notification.Accepted,
+                Status = notification.Status,
             };
         }
 

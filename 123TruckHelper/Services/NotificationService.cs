@@ -1,4 +1,5 @@
-﻿using _123TruckHelper.Models.API;
+﻿using _123TruckHelper.Enums;
+using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
