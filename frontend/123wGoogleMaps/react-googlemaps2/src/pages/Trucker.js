@@ -36,7 +36,7 @@ const Trucker = () => {
     const pollingCallback = () => {
       // fetch('https://jsonplaceholder.typicode.com/posts?_limit=10') // placeholder
       // fetch('http://localhost:8000/datum') // MOCK API FOR TESTING
-      fetch('https://localhost:7041/Notification/truck/342') // REAL API DOT NET
+      fetch('http://localhost:5016/Notification/truck/3162') // REAL API DOT NET
          .then((response) => response.json())
          .then((data) => {
             console.log(data); // DEBUGGING
@@ -92,7 +92,7 @@ const Trucker = () => {
       <div id="testGround">
         {/* <MyComponent /> */}
         <div className="flex-container">
-          <CardGroup>
+          {/* <CardGroup>
             {posts2.map((post) => {
               // MOCK API notification testing
               // return (
@@ -133,7 +133,7 @@ const Trucker = () => {
                 </div>
               );
             })}
-          </CardGroup>
+          </CardGroup> */}
         </div>
       </div>
     </div>
