@@ -28,12 +28,10 @@ namespace _123TruckHelper.Services
         }
 
         /// <inheritdoc/>
-        public async Task NotifyEligibleDriversAsync(int loadId)
+        public async Task NotifyOfAvailableLoadsAsync()
         {
-            var load = await _loadService.GetLoadAsync(loadId);
-
-            // keep sending notifications until we run out of drivers or someone accepts
-            
+            // will be called by a running background service at some interval
+            // notify people of each load to be merged, up to 3 notifs per driver
         }
     }
 }
