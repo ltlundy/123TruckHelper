@@ -2,21 +2,47 @@
     "datum": [
         {
            "userId": 1,
+           "currentLocation": "a",
            "id": 1,
-           "title": "sunt excepturi",
-           "body": "quia et suscipit\nsuscipit recusandae consequuntur "
-        },
-        {
-           "userId": 1,
-           "id": 2,
-           "title": "qui est esse",
-           "body": "est rerum tempore vitae\nsequi sint nihil"
+           "profit": "$100",
+           "revenue": "$150",
+           "startLocation": "a",
+           "endLocation": "b",
+           "tripDistance": "101",
+           "distanceToStart": "100"
         },
         {
             "userId": 1,
+            "currentLocation": "a",
+            "id": 2,
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "102",
+            "distanceToStart": "100"
+         },
+         {
+            "userId": 1,
+            "currentLocation": "a",
             "id": 3,
-            "title": "hey arman",
-            "body": "YEE"
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "103",
+            "distanceToStart": "100"
+         },
+         {
+            "userId": 1,
+            "currentLocation": "a",
+            "id": 4,
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "103",
+            "distanceToStart": "100"
          }
      ],
     "posts": [

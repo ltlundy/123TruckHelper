@@ -6,12 +6,11 @@ import { usePageVisibility } from "../components/usePageVisibility.js";
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 import { useEffect, useState, useRef } from 'react';
 
 import logo from '../components/123loadboard.png';
-
-import Col from 'react-bootstrap/Col';
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -19,8 +18,8 @@ const mapContainerStyle = {
   height: "60vh",
 };
 const center = {
-  lat: 7.2905715, // default latitude
-  lng: 80.6337262, // default longitude
+  lat: 45.50478, // default latitude
+  lng: -73.57706, // default longitude
 };
 
 const Trucker = () => {
@@ -82,7 +81,7 @@ const Trucker = () => {
       <div>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={10}
+          zoom={17}
           center={center}
         >
           <Marker position={center} />
@@ -91,31 +90,29 @@ const Trucker = () => {
       <hr></hr>
       <div id="testGround">
         {/* <MyComponent /> */}
-        {/* <div className="posts-container" > */}
         <div className="flex-container">
-          {/* <Container>
-            <Row> */}
-              {posts2.map((post) => {
-                return (
-                    <div key={post.id} className="flex-item">
-                      <Col>
-                        <Card style={{ width: '18rem', padding: '15px'}}>
-                          <Card.Img variant="top" src={logo} />
-                          <Card.Body>
-                            <Card.Title>{post.title}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">{post.id}</Card.Subtitle>
-                            <Card.Text>
-                              {post.body}
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                          </Card.Body>
-                        </Card>
-                      </Col>
-                    </div>
-                );
-              })}
-            {/* </Row>
-          </Container> */}
+          <CardGroup>
+            {posts2.map((post) => {
+              return (
+                <div key={post.id} className="flex-item">
+                  <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
+                    <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
+                    <Card.Body>
+                      <Card.Title>Profit = {post.profit}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km</Card.Subtitle>
+                      <Card.Text>
+                        Start of route: {post.startLocation} <br />
+                        End of route: {post.endLocation} <br />
+                        Distance to Start: {post.distanceToStart}km
+                      </Card.Text>
+                      <Button variant="primary">Go somewhere</Button>
+                    </Card.Body>
+                    <Card.Footer>Message ID = {post.id}</Card.Footer>
+                  </Card>
+                </div>
+              );
+            })}
+          </CardGroup>
         </div>
       </div>
     </div>
