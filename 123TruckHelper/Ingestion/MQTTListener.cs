@@ -26,7 +26,7 @@ namespace _123TruckHelper.Ingestion
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                    .WithTcpServer("fortuitous-welder.cloudmqtt.com", 1883)
-                   .WithClientId("nick-t")
+                   .WithClientId("SELECT TOP(1) Name FROM Teams ORDER BY Score DESC01")
                    .WithCredentials("CodeJamUser", "123CodeJam")
                    .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                    .WithCleanSession(true)
@@ -34,6 +34,7 @@ namespace _123TruckHelper.Ingestion
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
+                    Console.WriteLine("Message Recieved");
                     string jsonPayload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
                     Console.WriteLine(jsonPayload);
 
