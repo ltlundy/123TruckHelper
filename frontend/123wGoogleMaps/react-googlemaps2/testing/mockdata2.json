@@ -1,0 +1,44 @@
+{
+    "datum": [
+        {
+           "userId": 1,
+           "id": 1,
+           "title": "sunt excepturi",
+           "body": "quia et suscipit\nsuscipit recusandae consequuntur "
+        },
+        {
+           "userId": 1,
+           "id": 2,
+           "title": "qui est esse",
+           "body": "est rerum tempore vitae\nsequi sint nihil"
+        },
+        {
+            "userId": 1,
+            "id": 3,
+            "title": "hey arman",
+            "body": "YEE"
+         }
+     ],
+    "posts": [
+      {
+        "id": 1,
+        "title": "json-server",
+        "author": "typicode"
+      },
+      {
+        "id": 2,
+        "title": "test-data",
+        "author": "kunal"
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "body": "some comment",
+        "postId": 1
+      }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+  }
