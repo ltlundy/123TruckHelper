@@ -1,8 +1,6 @@
 ﻿using _123TruckHelper.Models.Data;
 using _123TruckHelper.Models.EF;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Reflection.Metadata.Ecma335;
 
 namespace _123TruckHelper.Services
 {
