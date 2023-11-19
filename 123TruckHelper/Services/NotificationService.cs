@@ -26,6 +26,11 @@ namespace _123TruckHelper.Services
                 .ToListAsync();
         }
 
+        public async Task GetNotificationsForTruckIDAsync(int truckID)
+        {
+
+        }
+
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)
         {
             
@@ -34,6 +39,8 @@ namespace _123TruckHelper.Services
 
             var notif = await dbContext.Notifications
                 .Where(n => n.Id == notificationId)
+                .Include(n => n.Load)
+                .Include(n => n.Truck)
                 .SingleOrDefaultAsync();
 
             if (notif == null)

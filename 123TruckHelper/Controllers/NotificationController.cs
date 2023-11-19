@@ -2,6 +2,7 @@
 using _123TruckHelper.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Transactions;
 
 namespace _123TruckHelper.Controllers
 {
@@ -24,6 +25,12 @@ namespace _123TruckHelper.Controllers
         public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
         {
             return await _notificationService.GetAllNotificationsAsync();
+        }
+
+        [HttpGet("truck/{truckId}")]
+        public async Task GetNotificationsForTruckerAsync(int truckId)
+        {
+
         }
 
 
