@@ -11,10 +11,12 @@ namespace _123TruckHelper.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService _notificationService;
+        private readonly ITruckService _truckService;
 
-        public NotificationController(INotificationService notificationService) 
+        public NotificationController(INotificationService notificationService, ITruckService truckService) 
         {
             _notificationService = notificationService;
+            _truckService = truckService;
         }
 
         /// <summary>
@@ -22,15 +24,27 @@ namespace _123TruckHelper.Controllers
         /// </summary>
         /// <returns>A list of all notifications sent out</returns>
         [HttpGet("/all")]
-        public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NotificationResponse>))]
+        public async Task<IEnumerable<NotificationResponse>> GetAllNotificationsAsync()
         {
             return await _notificationService.GetAllNotificationsAsync();
         }
 
         [HttpGet("truck/{truckId}")]
-        public async Task GetNotificationsForTruckerAsync(int truckId)
+        [ProducesResponseType(200, Type = typeof(NotificationCollection))]
+        public async Task<NotificationCollection> GetNotificationsForTruckerAsync(int truckId)
         {
+            var truckTask = _truckService.GetTruckLocationAsync(truckId);
+            var notificationsTask = _notificationService.GetNotificationsForTruckIDAsync(truckId);
 
+            var truckData = await truckTask;
+            var response = new NotificationCollection
+            {
+                CurrLat = truckData.PositionLatitude,
+                CurrLon = truckData.PositionLongitude,
+                NotificationTruckResponses = await notificationsTask
+            };
+            return response;
         }
 
 

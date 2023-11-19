@@ -3,6 +3,7 @@ using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace _123TruckHelper.Services
 {
@@ -29,9 +30,36 @@ namespace _123TruckHelper.Services
                 .ToListAsync();
         }
 
-        public async Task GetNotificationsForTruckIDAsync(int truckID)
+        public async Task<IEnumerable<NotificationTruckResponse>> GetNotificationsForTruckIDAsync(int truckID)
         {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
+            var notificationsEF = await dbContext.Notifications
+                .Include(n => n.Truck)
+                .Include(n => n.Load)
+                .Where(n => n.Truck.TruckId == truckID && n.Status == NotificationStatus.Sent && !n.Inactive)
+                .OrderByDescending(n => n.Profit)
+                .ThenBy(n => n.Mileage) // ordering by profit then distance to get there
+                .ToListAsync();
+
+            foreach (var notification in notificationsEF)
+            {
+                notification.Timestamp = DateTime.Now;
+            }
+
+            return notificationsEF.Select(notificationEF => new NotificationTruckResponse
+            {
+                DestLat = notificationEF.Load.DestinationLatitude,
+                DestLon = notificationEF.Load.DestinationLongitude,
+                OrigLat = notificationEF.Load.OriginLatitude,
+                OrigLon = notificationEF.Load.OriginLongitude,
+                Profit = notificationEF.Profit,
+                DistToStart = notificationEF.Mileage,
+                Revenue = notificationEF.Load.Price,
+                TripDist = notificationEF.Load.Mileage,
+                NotificationID = notificationEF.Id
+            }).ToList();
         }
 
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)
