@@ -92,7 +92,7 @@ const Trucker = () => {
       <div id="testGround">
         {/* <MyComponent /> */}
         <div className="flex-container">
-          <CardGroup>
+          <CardGroup style = {{ justifyContent: center, margin: '30px'}}>
             {posts2.map((post) => {
               // MOCK API notification testing
               // return (
@@ -116,7 +116,7 @@ const Trucker = () => {
               // REAL return for notifications
               return (
                 <div key={post.notificationID} className="flex-item">
-                  <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
+                  <Card style={{ width: '18rem', padding: '15px', height: '30rem'}}>
                     <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
                     <Card.Body>
                       <Card.Title>Est. Profit : {post.profit}</Card.Title>
