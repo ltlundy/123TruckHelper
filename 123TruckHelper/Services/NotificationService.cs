@@ -40,13 +40,20 @@ namespace _123TruckHelper.Services
                 .OrderByDescending(n => n.Profit)
                 .ThenBy(n => n.Mileage) // ordering by profit then distance to get there
                 .ToListAsync();
+
+            foreach (var notification in notificationsEF)
+            {
+                notification.Timestamp = DateTime.Now;
+            }
+
             return notificationsEF.Select(notificationEF => new NotificationTruckResponse
             {
                 DestLat = notificationEF.Load.DestinationLatitude,
                 DestLon = notificationEF.Load.DestinationLongitude,
                 OrigLat = notificationEF.Load.OriginLatitude,
                 OrigLon = notificationEF.Load.OriginLongitude,
-                // TODO :: Add Dist to start, profit
+                Profit = notificationEF.Profit,
+                DistToStart = notificationEF.Mileage,
                 Revenue = notificationEF.Load.Price,
                 TripDist = notificationEF.Load.Mileage,
                 NotificationID = notificationEF.Id

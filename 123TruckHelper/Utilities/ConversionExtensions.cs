@@ -12,7 +12,15 @@ namespace _123TruckHelper.Utilities
                 Timestamp = notification.Timestamp,
                 TruckId = notification.Truck.TruckId,
                 LoadId = notification.Load.LoadId,
-                Status = notification.Status,
+                DestLat = notification.Load.DestinationLatitude,
+                DestLon = notification.Load.DestinationLongitude,
+                OrigLat = notification.Load.OriginLatitude,
+                OrigLon = notification.Load.OriginLongitude,
+                Profit = notification.Profit,
+                DistToStart = notification.Mileage,
+                Revenue = notification.Load.Price,
+                TripDist = notification.Load.Mileage,
+                NotificationID = notification.Id
             };
         }
 

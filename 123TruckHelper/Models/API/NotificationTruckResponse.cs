@@ -6,7 +6,7 @@
 
         public decimal Revenue { get; set; }
 
-        public double Proft { get; set; }
+        public decimal Profit { get; set; }
 
         public double OrigLat { get; set; }
 
@@ -18,7 +18,7 @@
 
         public decimal TripDist { get; set; }
 
-        public double DistToStart { get; set; }
+        public decimal DistToStart { get; set; }
 
     }
 }

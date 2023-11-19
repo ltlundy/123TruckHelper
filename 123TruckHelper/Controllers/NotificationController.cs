@@ -24,7 +24,8 @@ namespace _123TruckHelper.Controllers
         /// </summary>
         /// <returns>A list of all notifications sent out</returns>
         [HttpGet("/all")]
-        public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NotificationResponse>))]
+        public async Task<IEnumerable<NotificationResponse>> GetAllNotificationsAsync()
         {
             return await _notificationService.GetAllNotificationsAsync();
         }

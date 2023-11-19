@@ -1,8 +1,7 @@
 ﻿namespace _123TruckHelper.Models.API
 {
-    public class NotificationCollection : HttpResponseMessage
+    public class NotificationCollection
     {
-        
         public IEnumerable<NotificationTruckResponse>? NotificationTruckResponses { get; set; }
 
         public double CurrLat { get; set; }
