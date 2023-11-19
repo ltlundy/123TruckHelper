@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using _123TruckHelper;
+using _123TruckHelper.Ingestion;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Services;
-using _123TruckHelper.Ingestion;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
