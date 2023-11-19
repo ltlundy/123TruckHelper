@@ -34,8 +34,11 @@ namespace _123TruckHelper.Controllers
         [ProducesResponseType(200, Type = typeof(NotificationCollection))]
         public async Task<NotificationCollection> GetNotificationsForTruckerAsync(int truckId)
         {
-            var truckTask = _truckService.GetTruckLocationAsync(truckId);
-            var notificationsTask = _notificationService.GetNotificationsForTruckIDAsync(truckId);
+            // nick made a mistake with fk or something and we need to get the right id (the 123LB one)
+            var correctId = await _truckService.GetCorrectTruckId(truckId);
+
+            var truckTask = _truckService.GetTruckLocationAsync(correctId);
+            var notificationsTask = _notificationService.GetNotificationsForTruckIDAsync(correctId);
 
             var truckData = await truckTask;
             var response = new NotificationCollection
