@@ -14,7 +14,7 @@ import logo from '../components/123loadboard.png';
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "100vw",
+  width: "80vw",
   height: "60vh",
 };
 const center = {
@@ -78,7 +78,7 @@ const Trucker = () => {
   return (
     <div>
       <Navibar />
-      <div>
+      <div className="flex-container">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={17}
@@ -98,12 +98,12 @@ const Trucker = () => {
                   <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
                     <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
                     <Card.Body>
-                      <Card.Title>Profit = {post.profit}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km</Card.Subtitle>
+                      <Card.Title>Est. Profit : {post.profit}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
                       <Card.Text>
-                        Start of route: {post.startLocation} <br />
-                        End of route: {post.endLocation} <br />
-                        Distance to Start: {post.distanceToStart}km
+                        Start of route : {post.startLocation} <br />
+                        End of route : {post.endLocation} <br />
+                        Distance to Start : {post.distanceToStart}km
                       </Card.Text>
                       <Button variant="primary">Go somewhere</Button>
                     </Card.Body>
