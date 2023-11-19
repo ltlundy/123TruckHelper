@@ -1,5 +1,6 @@
 ﻿using _123TruckHelper.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace _123TruckHelper.Controllers
 {
@@ -14,10 +15,14 @@ namespace _123TruckHelper.Controllers
             this.TruckService = TruckService;
         }
 
-        [HttpPost("/PhoneNumber/{phoneNumber}")]
-        public async Task AddPhoneNumber(string phoneNumber)
+        [HttpPost("/PhoneNumber/{truckId}/{phoneNumber}")]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(404)]
+        public async Task<HttpStatusCode> AddPhoneNumber(int truckId, string phoneNumber)
         {
+            var result = await TruckService.AddPhoneNumberToTruck(phoneNumber, truckId);
 
+            return (result) ? HttpStatusCode.Accepted : HttpStatusCode.NotFound;
         }
     }
 }

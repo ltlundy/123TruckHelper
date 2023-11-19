@@ -34,5 +34,8 @@ namespace _123TruckHelper.Models.EF
         /// For soft deletes
         /// </summary>
         public bool Inactive { get; set; } = false;
+
+
+        public string? PhoneNumber { get; set; }
     }
 }

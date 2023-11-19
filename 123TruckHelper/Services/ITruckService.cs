@@ -8,6 +8,6 @@ namespace _123TruckHelper.Services
 
         Task<TruckData> GetTruckLocationAsync(int truckID);
 
-        Task AddPhoneNumberToTruck(string phoneNumber);
+        Task<bool> AddPhoneNumberToTruck(string phoneNumber, int truckId);
     }
 }

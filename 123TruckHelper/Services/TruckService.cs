@@ -67,9 +67,24 @@ namespace _123TruckHelper.Services
             }
         }
 
-        public Task AddPhoneNumberToTruck(string phoneNumber)
+        public async Task<bool> AddPhoneNumberToTruck(string phoneNumber, int truckId)
         {
-            throw new NotImplementedException();
+            using var scope = _serviceScopeFactory.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
+
+            var truck = await dbContext.Trucks.Where(t => t.TruckId == truckId).SingleOrDefaultAsync();
+
+            if (truck == null)
+            {
+                return false;
+            }
+            else
+            {
+                truck.PhoneNumber = phoneNumber;
+            }
+
+            await dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }
