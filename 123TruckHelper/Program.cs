@@ -4,7 +4,6 @@ using _123TruckHelper.Models.EF;
 using _123TruckHelper.Services;
 using _123TruckHelper.Ingestion;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -34,6 +33,14 @@ builder.Services.AddTransient<ITruckService, TruckService>();
 builder.Services.AddTransient<ILoadService, LoadService>();
 
 var app = builder.Build();
+
+// Enable CORS
+app.UseCors(options =>
+{
+    options.WithOrigins("http://localhost:3000", "https://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
