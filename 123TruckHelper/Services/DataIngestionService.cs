@@ -1,7 +1,6 @@
 ﻿using _123TruckHelper.Models.Data;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace _123TruckHelper.Services
@@ -9,14 +8,17 @@ namespace _123TruckHelper.Services
     public class DataIngestionService : IDataIngestionService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly ITruckService _TruckService;
-        private readonly ILoadService _LoadService;
+        private readonly ITruckService _truckService;
+        private readonly ILoadService _loadService;
+        private readonly INotificationService _notificationService;
 
-        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService, ILoadService loadService)
+        public DataIngestionService(IServiceScopeFactory serviceScopeFactory, ITruckService truckService, ILoadService loadService,
+            INotificationService notificationService)
         {
             _serviceScopeFactory = serviceScopeFactory;
-            _TruckService = truckService;
-            _LoadService = loadService;
+            _truckService = truckService;
+            _loadService = loadService;
+            _notificationService = notificationService;
         }
 
         public async Task ParseMessageAndTakeAction(string json)
@@ -31,11 +33,11 @@ namespace _123TruckHelper.Services
             {
                 if (type == "Truck")
                 {
-                    await ParseAndSaveTruck(json);
+                    await HandleIncomingTruck(json);
                 }
                 else if (type == "Load")
                 {
-                    await ParseAndSaveLoad(json);
+                    await HandleIncomingLoad(json);
                 }
                 else if (type == "Start")
                 {
@@ -53,7 +55,7 @@ namespace _123TruckHelper.Services
      
         }
 
-        private async Task ParseAndSaveTruck(string json)
+        private async Task HandleIncomingTruck(string json)
         {
             var jsonSerializerOptions = new JsonSerializerOptions
             {
@@ -63,10 +65,10 @@ namespace _123TruckHelper.Services
 
             var truck = JsonSerializer.Deserialize<TruckData>(json, jsonSerializerOptions);
 
-            await _TruckService.CreateOrUpdateTruckAsync(truck);
+            await _truckService.CreateOrUpdateTruckAsync(truck);
         }
 
-        private async Task ParseAndSaveLoad(string json)
+        private async Task HandleIncomingLoad(string json)
         {
             var jsonSerializerOptions = new JsonSerializerOptions
             {
@@ -76,7 +78,7 @@ namespace _123TruckHelper.Services
 
             var load = JsonSerializer.Deserialize<LoadData>(json, jsonSerializerOptions);
 
-            await _LoadService.AddLoadAsync(load);
+            await _loadService.AddLoadAsync(load);
         }
 
         private async Task HandleDayStart()

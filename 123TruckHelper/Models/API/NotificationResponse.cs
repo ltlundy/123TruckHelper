@@ -1,4 +1,5 @@
-﻿using _123TruckHelper.Models.EF;
+﻿using _123TruckHelper.Enums;
+using _123TruckHelper.Models.EF;
 
 namespace _123TruckHelper.Models.API
 {
@@ -17,8 +18,8 @@ namespace _123TruckHelper.Models.API
         public int LoadId { get; set; }
 
         /// <summary>
-        /// Whether this notification was accepted or denied
+        /// Accepted, denied, not yet responded, expired
         /// </summary>
-        public bool Accepted { get; set; }
+        public NotificationStatus Status { get; set; }
     }
 }

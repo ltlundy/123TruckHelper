@@ -1,4 +1,5 @@
-﻿using _123TruckHelper.Models.API;
+﻿using _123TruckHelper.Enums;
+using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,12 @@ namespace _123TruckHelper.Services
             }
 
             return status;
+        
+        /// <inheritdoc/>
+        public async Task NotifyOfAvailableLoadsAsync()
+        {
+            // will be called by a running background service at some interval
+            // notify people of each load to be merged, up to 3 notifs per driver
         }
     }
 }
