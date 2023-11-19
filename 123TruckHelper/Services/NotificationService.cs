@@ -218,7 +218,7 @@ namespace _123TruckHelper.Services
             return Math.PI * angle / 180.0;
         }
 
-        private async Task NotifyNumberOneTrucker(Truck truck, Notification notification)
+        private void NotifyNumberOneTrucker(Truck truck, Notification notification)
         {
             var accountSid = "AC6e9db69bfd1758ee2bf863141d27a8f7";
             var authToken = _config.GetValue<string>("TwilioKey");
