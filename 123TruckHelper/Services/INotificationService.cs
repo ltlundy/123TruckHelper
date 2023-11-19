@@ -1,4 +1,4 @@
-﻿using _123TruckHelper.Models.API;
+using _123TruckHelper.Models.API;
 
 namespace _123TruckHelper.Services
 {
