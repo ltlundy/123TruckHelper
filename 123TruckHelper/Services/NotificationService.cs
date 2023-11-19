@@ -132,11 +132,14 @@ namespace _123TruckHelper.Services
 
                 foreach (var truck in trucksThatCanCarry)
                 {
+                    var profit = CalculateProfit(truck, load);
+
                     var notification = new Notification {
                         Timestamp = DateTimeOffset.Now,
                         Truck = truck,
                         Load = load,
-                        Status = NotificationStatus.Sent
+                        Status = NotificationStatus.Sent,
+                        Profit = profit
                     };
 
                     await dbContext.Notifications.AddAsync(notification);
