@@ -66,5 +66,10 @@ namespace _123TruckHelper.Services
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public Task AddPhoneNumberToTruck(string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

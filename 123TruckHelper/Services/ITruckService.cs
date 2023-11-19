@@ -7,5 +7,7 @@ namespace _123TruckHelper.Services
         Task CreateOrUpdateTruckAsync(TruckData truckData);
 
         Task<TruckData> GetTruckLocationAsync(int truckID);
+
+        Task AddPhoneNumberToTruck(string phoneNumber);
     }
 }
