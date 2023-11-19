@@ -40,7 +40,7 @@ const Trucker = () => {
          .then((response) => response.json())
          .then((data) => {
             console.log(data); // DEBUGGING
-            set2Posts(data);
+            set2Posts(data.notificationTruckResponses);
          })
          .catch((err) => {
             console.log(err.message);
@@ -92,7 +92,7 @@ const Trucker = () => {
       <div id="testGround">
         {/* <MyComponent /> */}
         <div className="flex-container">
-          {/* <CardGroup>
+          <CardGroup>
             {posts2.map((post) => {
               // MOCK API notification testing
               // return (
@@ -133,7 +133,7 @@ const Trucker = () => {
                 </div>
               );
             })}
-          </CardGroup> */}
+          </CardGroup>
         </div>
       </div>
     </div>
