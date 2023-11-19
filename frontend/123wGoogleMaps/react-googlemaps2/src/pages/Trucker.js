@@ -31,12 +31,13 @@ const Trucker = () => {
   const [posts2, set2Posts] = useState([]);
   const isPageVisible = usePageVisibility();
   const timerIdRef = useRef(null);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const pollingCallback = () => {
       // fetch('https://jsonplaceholder.typicode.com/posts?_limit=10') // placeholder
       // fetch('http://localhost:8000/datum') // MOCK API FOR TESTING
-      fetch('http://localhost:5016/Notification/truck/3162') // REAL API DOT NET
+      fetch('http://localhost:5016/Notification/truck/6125') // REAL API DOT NET
          .then((response) => response.json())
          .then((data) => {
             console.log(data); // DEBUGGING
@@ -94,42 +95,41 @@ const Trucker = () => {
         <div className="flex-container">
           <CardGroup>
             {posts2.map((post) => {
-              // MOCK API notification testing
-              // return (
-              //   <div key={post.id} className="flex-item">
-              //     <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
-              //       <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
-              //       <Card.Body>
-              //         <Card.Title>Est. Profit : {post.profit}</Card.Title>
-              //         <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDistance}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
-              //         <Card.Text>
-              //           Start of route : {post.startLocation} <br />
-              //           End of route : {post.endLocation} <br />
-              //           Distance to Start : {post.distanceToStart}km
-              //         </Card.Text>
-              //         <Button variant="primary">Go somewhere</Button>
-              //       </Card.Body>
-              //       <Card.Footer>Message ID = {post.id}</Card.Footer>
-              //     </Card>
-              //   </div>
-              // );
-              // REAL return for notifications
+              const handleClick = () => {
+                setShow(false);
+// //TEST
+//                 const postURL = 'http://localhost/5016/respond/' + notifID + '/' + choice;
+                // fetch(postURL)
+                //     .then((response) => response.json())
+                //     .then((data2) => {
+                //       console.log(data2); // DEBUGGING
+                //       // setDecisionResponse(data.//won't use but if future, this will be confirmation of taking load, or load already taken by others);
+                //       // = true IF confirm is valid; = false if someone else confirmed first aka cannot confirm
+                //     })
+                //     .catch((err) => {
+                //       console.log(err.message);
+//                     }); // TEST
+              }
               return (
                 <div key={post.notificationID} className="flex-item">
-                  <Card style={{ width: '18rem', padding: '15px', height: '25rem'}}>
+                  { show ? <Card style={{ width: '18rem', padding: '15px', height: '27rem', margin: '0.5rem'}}>
                     <Card.Img variant="top" src={logo} style={{padding: '5px'}}/>
                     <Card.Body>
-                      <Card.Title>Est. Profit : {post.profit}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDist}km <br/>Gross Revenue : {post.revenue}</Card.Subtitle>
+                      <Card.Title>Est. Profit : ${post.profit}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">Trip Distance : {post.tripDist}mi <br/>Gross Revenue : ${post.revenue}</Card.Subtitle>
                       <Card.Text>
                         Start of route : {post.origLat} {post.origLon}<br />
                         End of route : {post.destLat} {post.destLon}<br />
-                        Distance to Start : {post.distToStart}km
+                        Distance to Start : {post.distToStart}mi
                       </Card.Text>
-                      <Button variant="primary">Go somewhere</Button>
+                      <div className="flex-container" style = {{ position:'absolute', bottom:'5rem'}}>
+                        <Button variant="primary" className="flex-item" style = {{ margin:'0.5rem'}} onClick={handleClick}>Decline</Button>
+                        <Button variant="primary" className="flex-item" style = {{ margin:'0.5rem'}} onClick={handleClick}>Accept</Button>
+                      </div>
+                      
                     </Card.Body>
                     <Card.Footer>Message ID = {post.notificationID}</Card.Footer>
-                  </Card>
+                  </Card> : null}
                 </div>
               );
             })}
