@@ -44,3 +44,8 @@ code {
 .search-bar {
   margin-left: auto;
 }
+
+.rdt_TableCol div:first-child {
+  white-space: normal !important;
+  overflow: visible !important;
+}
