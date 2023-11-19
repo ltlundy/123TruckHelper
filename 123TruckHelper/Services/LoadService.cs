@@ -19,21 +19,36 @@ namespace _123TruckHelper.Services
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
-            var load = await dbContext.Loads.Where(l => l.LoadId == data.LoadId).SingleOrDefaultAsync() ?? new Load();
-
-            load.LoadId = data.LoadId;
-            load.DestinationLatitude = data.DestinationLatitude;
-            load.DestinationLongitude = data.DestinationLongitude;
-            load.OriginLatitude = data.OriginLatitude;
-            load.OriginLongitude = data.OriginLongitude;
-            load.EquipmentType = data.EquipmentType;
-            load.Mileage = data.Mileage;
-            load.Price = data.Price;
-            load.Inactive = false;
-            load.IsAvailable = true;
-         
-
-            await dbContext.Loads.AddAsync(load);
+            var l = await dbContext.Loads.Where(l => l.LoadId == data.LoadId).SingleOrDefaultAsync();
+            if (l == null)
+            {
+                var load = new Load
+                {
+                    LoadId = data.LoadId,
+                    DestinationLatitude = data.DestinationLatitude,
+                    DestinationLongitude = data.DestinationLongitude,
+                    OriginLatitude = data.OriginLatitude,
+                    OriginLongitude = data.OriginLongitude,
+                    EquipmentType = data.EquipmentType,
+                    Mileage = data.Mileage,
+                    Price = data.Price,
+                    IsAvailable = true,
+                    Inactive = false
+                };
+                await dbContext.Loads.AddAsync(load);
+            }
+            else
+            {
+                l.LoadId = data.LoadId;
+                l.DestinationLatitude = data.DestinationLatitude;
+                l.DestinationLongitude = data.DestinationLongitude;
+                l.OriginLatitude = data.OriginLatitude;
+                l.OriginLongitude = data.OriginLongitude;
+                l.EquipmentType = data.EquipmentType;
+                l.Mileage = data.Mileage;
+                l.Price = data.Price;
+                l.Inactive = false;
+            }
             await dbContext.SaveChangesAsync();
         }
 
