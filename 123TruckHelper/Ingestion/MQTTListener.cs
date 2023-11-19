@@ -34,9 +34,9 @@ namespace _123TruckHelper.Ingestion
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
-                    Console.WriteLine("Message Recieved");
+                    // Console.WriteLine("Message Recieved");
                     string jsonPayload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                    Console.WriteLine(jsonPayload);
+                    // Console.WriteLine(jsonPayload);
 
                     // read in the message and save the info
                     var dataIngestionService = _serviceProvider.GetRequiredService<IDataIngestionService>();

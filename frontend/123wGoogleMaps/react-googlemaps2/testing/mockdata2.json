@@ -1,0 +1,70 @@
+{
+    "datum": [
+        {
+           "userId": 1,
+           "currentLocation": "a",
+           "id": 1,
+           "profit": "$100",
+           "revenue": "$150",
+           "startLocation": "a",
+           "endLocation": "b",
+           "tripDistance": "101",
+           "distanceToStart": "100"
+        },
+        {
+            "userId": 1,
+            "currentLocation": "a",
+            "id": 2,
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "102",
+            "distanceToStart": "100"
+         },
+         {
+            "userId": 1,
+            "currentLocation": "a",
+            "id": 3,
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "103",
+            "distanceToStart": "100"
+         },
+         {
+            "userId": 1,
+            "currentLocation": "a",
+            "id": 4,
+            "profit": "$100",
+            "revenue": "$150",
+            "startLocation": "a",
+            "endLocation": "b",
+            "tripDistance": "103",
+            "distanceToStart": "100"
+         }
+     ],
+    "posts": [
+      {
+        "id": 1,
+        "title": "json-server",
+        "author": "typicode"
+      },
+      {
+        "id": 2,
+        "title": "test-data",
+        "author": "kunal"
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "body": "some comment",
+        "postId": 1
+      }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+  }

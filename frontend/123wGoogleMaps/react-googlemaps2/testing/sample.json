@@ -1,0 +1,226 @@
+{
+  "notificationTruckResponses": [
+    {
+      "notificationID": 137379,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 138069,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 138759,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 139449,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 140139,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 140829,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 141519,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 142209,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 142899,
+      "revenue": 2150.0,
+      "profit": 675.51,
+      "origLat": 39.33,
+      "origLon": -84.49,
+      "destLat": 32.87,
+      "destLon": -96.67,
+      "tripDist": 942.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 136363,
+      "revenue": 900.0,
+      "profit": 395.77,
+      "origLat": 38.7626,
+      "origLon": -80.6373,
+      "destLat": 35.7339,
+      "destLon": -79.6523,
+      "tripDist": 298.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 137794,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 139174,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 138484,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 141934,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 141244,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 140554,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 139864,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 137104,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 142624,
+      "revenue": 950.0,
+      "profit": 390.59,
+      "origLat": 38.3307,
+      "origLon": -80.6532,
+      "destLat": 41.3935,
+      "destLon": -81.4441,
+      "tripDist": 307.0,
+      "distToStart": 0.0
+    },
+    {
+      "notificationID": 136405,
+      "revenue": 900.0,
+      "profit": 354.82,
+      "origLat": 38.9259,
+      "origLon": -79.8467,
+      "destLat": 40.5009,
+      "destLon": -75.9699,
+      "tripDist": 293.0,
+      "distToStart": 0.0
+    }
+  ],
+  "currLat": 38.39756393432617,
+  "currLon": -82.46698760986328
+}

@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+## Requirements 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. axios@1.6.2
+2. bootstrap@5.3.2
+3. datatables.net-dt@1.13.8
+4. firebase@9.23
+5. popper@9.23.0
+6. react-bootstrap@2.9.1
+7. react-table@7.8.0
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory (react-googlemaps2), you can run:
 
 ### `npm start`
 
