@@ -42,6 +42,9 @@ namespace _123TruckHelper.Migrations
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LoadId")
                         .HasColumnType("int");
 
@@ -56,6 +59,9 @@ namespace _123TruckHelper.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TruckId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

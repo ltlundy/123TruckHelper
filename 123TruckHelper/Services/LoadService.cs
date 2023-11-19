@@ -47,15 +47,15 @@ namespace _123TruckHelper.Services
             {
                 return 404;
             } 
-            else if (!load.IsAvaiable)
+            else if (!load.IsAvailable)
             {
                 return 410;
             }
             else
             {
-                load.IsAvaiable = false;
+                load.IsAvailable = false;
                 truck.Busy = true;
-                load.Truck = truck;
+                load.TruckId = truck.Id;
                 dbContext.SaveChanges();
                 return 202;
             }
