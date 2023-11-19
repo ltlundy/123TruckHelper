@@ -218,7 +218,7 @@ namespace _123TruckHelper.Services
             return Math.PI * angle / 180.0;
         }
 
-        private async Task NotifyNumberOneTruckers(Truck truck, Notification notification)
+        private async Task NotifyNumberOneTrucker(Truck truck, Notification notification)
         {
             var accountSid = "AC6e9db69bfd1758ee2bf863141d27a8f7";
             var authToken = _config.GetValue<string>("TwilioKey");
@@ -226,7 +226,7 @@ namespace _123TruckHelper.Services
 
             var messageOptions = new CreateMessageOptions(
               new PhoneNumber(truck.PhoneNumber));
-            messageOptions.From = new PhoneNumber("+15013400710");
+            messageOptions.From = new PhoneNumber(_config.GetValue<string>("TwilioNumber"));
             messageOptions.Body = "New nearby top load, " + notification.Mileage + " Miles away with an estimated profit of: " + notification.Profit;
 
             var message = MessageResource.Create(messageOptions);
