@@ -23,7 +23,10 @@ namespace _123TruckHelper.Services
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
+            // we need to include truck and load for the conversion
             return await dbContext.Notifications
+                .Include(n => n.Truck)
+                .Include(n => n.Load)
                 .Select(n => n.Convert())
                 .ToListAsync();
         }
