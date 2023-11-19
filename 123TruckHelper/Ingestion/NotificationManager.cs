@@ -17,7 +17,7 @@ namespace _123TruckHelper.Ingestion
         {
             while (true)
             {
-                await Task.Delay(30000);
+                await Task.Delay(10000);
 
                 var notificationService = _serviceProvider.GetRequiredService<INotificationService>();
                 await notificationService.NotifyOfAvailableLoadsAsync();

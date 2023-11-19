@@ -79,16 +79,26 @@ namespace _123TruckHelper.Services
             {
                 var isShort = load.Mileage < 200;
 
-                // megaquery
-                // TODO: ignore loads a ridiculous distance
-                var toNotify = await dbContext.Trucks
+                // Fetch necessary data from the database
+                var toNotifyQuery = dbContext.Trucks
                     .Where(t => !t.Busy)
                     .Where(t => (t.NextTripLengthPreference == TripLength.Short) == isShort)
                     .Where(t => t.EquipType == load.EquipmentType)
-                    .Where(t => GetNumActiveNotifications(t.TruckId) < 5)
-                    .OrderByDescending(t => CalculateProfit(t.TruckId, load.LoadId))
-                    .Take(5)
+                    .OrderByDescending(t => CalculateProfit(t, load))
+                    .Take(5);
+
+                var trucksToNotify = await toNotifyQuery.ToListAsync();
+
+                var truckIdsWithLessThan5Notifs = await dbContext.Notifications
+                    .Where(n => n.Status == NotificationStatus.Sent && !n.Inactive)
+                    .GroupBy(n => n.Truck.TruckId)
+                    .Where(g => g.Count() < 5)
+                    .Select(g => g.Key)
                     .ToListAsync();
+
+                var toNotify = trucksToNotify
+                    .Where(t => truckIdsWithLessThan5Notifs.Contains(t.TruckId))
+                    .ToList();
 
                 foreach (var truck in toNotify)
                 {
@@ -118,18 +128,10 @@ namespace _123TruckHelper.Services
         /// <param name="truckId">Truck ID</param>
         /// <param name="loadId">Load ID</param>
         /// <returns></returns>
-        private decimal CalculateProfit(int truckId, int loadId)
+        private decimal CalculateProfit(Truck truck, Load load)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
-
-            var truck = dbContext.Trucks
-                .Where(t => t.TruckId == truckId)
-                .SingleOrDefault();
-
-            var load = dbContext.Loads
-                .Where(l => l.LoadId == loadId)
-                .SingleOrDefault();
 
             var gasCostCarryingLoad = load.Mileage * GAS_PRICE_PER_MILE;
 
