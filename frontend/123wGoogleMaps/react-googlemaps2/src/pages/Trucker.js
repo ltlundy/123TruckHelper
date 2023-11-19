@@ -1,74 +1,28 @@
 import React from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { Navibar } from "../components/Frame.js";
+import PolledComponent from "../components/PolledComponent.js";
 
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Card from 'react-bootstrap/Card';
 
 import { useEffect, useState, useRef } from 'react';
-import { usePageVisibility } from '../components/usePageVisibility';
+
+import logo from '../components/123loadboard.png';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const libraries = ["places"];
 const mapContainerStyle = {
   width: "100vw",
-  height: "70vh",
+  height: "60vh",
 };
 const center = {
   lat: 7.2905715, // default latitude
   lng: 80.6337262, // default longitude
 };
-
-export function PolledComponent() {
-    const isPageVisible = usePageVisibility();
-    const timerIdRef = useRef(null);
-    const [isPollingEnabled, setIsPollingEnabled] = useState(true);
-
-    // const [timesPolled, setTimesPolled] = useState(0);
-  
-    useEffect(() => {
-      const pollingCallback = () => {
-        // Your polling logic here
-        console.log('Polling...');
-        
-        // Simulating an API failure in the polling callback
-        const shouldFail = Math.random() < 0.2; // Simulate 20% chance of API failure
-  
-        if (shouldFail) {
-          setIsPollingEnabled(false);
-          console.log('Polling failed. Stopped polling.');
-        }
-      };
-  
-      const startPolling = () => {
-        pollingCallback(); // To immediately start fetching data
-        // Polling every 30 seconds
-        timerIdRef.current = setInterval(pollingCallback, 5000);
-      };
-  
-      const stopPolling = () => {
-        clearInterval(timerIdRef.current);
-        console.log('setIsPollingEnabled2 = ' + isPollingEnabled);
-      };
-  
-      if (isPageVisible && isPollingEnabled) {
-        startPolling();
-      } else {
-        stopPolling();
-      }
-  
-      return () => {
-        stopPolling();
-        // setTimesPolled(6);
-        // console.log('timesPolled = ' + timesPolled);
-      };
-    }, [isPageVisible, isPollingEnabled]);
-  
-    return (
-      <div>
-        <img src="https://i.imgur.com/QIrZWGIs.jpg" alt="Alan L. Hart" />;
-      </div>
-    );
-  }
 
 const Trucker = () => {
   const { isLoaded, loadError } = useLoadScript({
@@ -76,10 +30,18 @@ const Trucker = () => {
     libraries,
   });
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [posts2, set2Posts] = useState([]);
+   useEffect(() => {
+      fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+         .then((response) => response.json())
+         .then((data) => {
+            console.log(data);
+            set2Posts(data);
+         })
+         .catch((err) => {
+            console.log(err.message);
+         });
+   }, []);
 
   if (loadError) {
     return <div>Error loading maps</div>;
@@ -102,26 +64,34 @@ const Trucker = () => {
         </GoogleMap>
       </div>
       <hr></hr>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
       <div id="testGround">
-        <PolledComponent></PolledComponent>
+        {/* <PolledComponent></PolledComponent> */}
+        {/* <div className="posts-container" > */}
+        <div class="flex-container">
+          {/* <Container>
+            <Row> */}
+              {posts2.map((post) => {
+                return (
+                    <div key={post.id} class="flex-item">
+                      <Col>
+                        <Card style={{ width: '18rem' }}>
+                          <Card.Img variant="top" src={logo} />
+                          <Card.Body>
+                            <Card.Title>{post.title}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">{post.id}</Card.Subtitle>
+                            <Card.Text>
+                              {post.body}
+                            </Card.Text>
+                            <Button variant="primary">Go somewhere</Button>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </div>
+                );
+              })}
+            {/* </Row>
+          </Container> */}
+        </div>
       </div>
     </div>
   );
