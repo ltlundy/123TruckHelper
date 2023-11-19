@@ -63,6 +63,7 @@ namespace _123TruckHelper.Services
                         existing_truck.PositionLatitude = truckData.PositionLatitude;
                         existing_truck.PositionLongitude = truckData.PositionLongitude;
                         existing_truck.NextTripLengthPreference = truckData.NextTripLengthPreference;
+                        existing_truck.Inactive = false;
                     }
                 }
                 else

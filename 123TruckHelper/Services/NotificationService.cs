@@ -133,6 +133,7 @@ namespace _123TruckHelper.Services
 
                 var toNotify = trucksThatCanCarry
                     .Where(t => !truckIdsWith5OrMoreNotifs.Contains(t.TruckId))
+                    .Where(t => CalculateProfit(t, load) >= 0)
                     .Take(5)
                     .ToList();
 
