@@ -31,196 +31,12 @@ const columns = [
     selector: (row) => row.tripDist,
   },
   {
-    name: 'Driver Current Location (Latitude, Longitude)',
-    selector: (row) => row.currentLocation,
-  },
-  {
     name: 'Driver Distance to Load Origin',
     selector: (row) => row.distToStart,
-  },
-  ,
-        {
-            name:"Title",
-            selector:(row)=>row.title,
-        },
-        {
-            name:"Category",
-            selector:(row)=>row.category,
-        }
+  }
 ];
 
-// const data = [
-//     {
-//         truckId: 1,
-//         revenue: 10000,
-//         profit: 8000,
-//         origLat: 'OriginLat 1',
-//         origLon: 'OriginLong1',
-//         destLat: 'DestinationLat1',
-//         destLon: 'DesinationLong1',
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 2,
-//         revenue: 12000,
-//         profit: 9500,
-//         origLat: 'Origin 2',
-//         origLon: 'origin 2',
-//         destLat: 'Destination 2',
-//         destLon: 'origin 2',
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }, 
-//     {
-//         truckId: 3,
-//         revenue: 10000,
-//         profit: 8000,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 4,
-//         revenue: 12000,
-//         profit: 9500,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }, 
-//     {
-//         truckId: 5,
-//         revenue: 10000,
-//         profit: 8000,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 6,
-//         revenue: 12000,
-//         profit: 9500,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }, 
-//     {
-//         truckId: 7,
-//         revenue: 10000,
-//         profit: 8000,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 8,
-//         revenue: 12000,
-//         profit: 9500,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }, 
-//     {
-//         truckId: 9,
-//         revenue: 10000,
-//         profit: 8000,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 10,
-//         revenue: 12000,
-//         profit: 9500,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }, 
-//     {
-//         truckId: 11,
-//         revenue: 10000,
-//         profit: 8000,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '100 miles',
-//         currLat: 'Current Location 1',
-//         currLon: 0,
-//         distToStart: '20 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     },
-//     {
-//         truckId: 12,
-//         revenue: 12000,
-//         profit: 9500,
-//         "origLat": 0,
-//         "origLon": 0,
-//         "destLat": 0,
-//         "destLon": 0,
-//         tripDist: '150 miles',
-//         currLat: 'Current Location 2',
-//         currLon: 0,
-//         distToStart: '15 miles',
-//         "timestamp": "2023-11-19T07:28:27.107Z",
-//     }
-// ];
-
-const req= await fetch("https://fakestoreapi.com/products");
+const req= await fetch("http://localhost:5016/all");
 const data= await req.json();
 
 const MyDataTable = () => {
@@ -230,18 +46,15 @@ const MyDataTable = () => {
     const text = e.target.value;
     setSearchText(text);
   };
-// CHANGE THIS TO item.truckId
+
   const filteredData = data.filter((item) =>
-    item.title.toString().toLowerCase().includes(searchText.toLowerCase())
+    item.truckId.toString().toLowerCase().includes(searchText.toLowerCase())
   );
   for (let i=0; i<filteredData.length; i++) {
     filteredData[i].origin = filteredData[i].origLat + ', ' + filteredData[i].origLon;
     filteredData[i].destination = filteredData[i].destLat + ', ' + filteredData[i].destLon;
-    filteredData[i].currentLocation = filteredData[i].currLat + ', ' + filteredData[i].currLon;
-
   }
   //const filteredData = data;
-  filteredData[0].origin = "origin";
   const tableHeaderstyle={
     headCells:{
         style:{
