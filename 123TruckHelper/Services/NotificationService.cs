@@ -115,8 +115,7 @@ namespace _123TruckHelper.Services
                     .Where(t => (t.NextTripLengthPreference == TripLength.Short) == isShort)
                     .Where(t => t.EquipType == load.EquipmentType)
                     .ToList()
-                    .OrderByDescending(t => CalculateProfit(t, load))
-                    .Take(5);
+                    .OrderByDescending(t => CalculateProfit(t, load));
 
                 var truckIdsWithLessThan5Notifs = dbContext.Notifications
                     .Include(n => n.Truck)
@@ -128,6 +127,7 @@ namespace _123TruckHelper.Services
 
                 var toNotify = trucksThatCanCarry
                     .Where(t => truckIdsWithLessThan5Notifs.Contains(t.TruckId))
+                    .Take(5)
                     .ToList();
 
                 foreach (var truck in trucksThatCanCarry)
