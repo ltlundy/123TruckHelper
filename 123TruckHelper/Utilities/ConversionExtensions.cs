@@ -1,4 +1,5 @@
 ﻿using _123TruckHelper.Models.API;
+using _123TruckHelper.Models.Data;
 using _123TruckHelper.Models.EF;
 
 namespace _123TruckHelper.Utilities
@@ -11,7 +12,21 @@ namespace _123TruckHelper.Utilities
                 Timestamp = notification.Timestamp,
                 TruckId = notification.Truck.TruckId,
                 LoadId = notification.Load.LoadId,
-                Accepted = notification.Accepted,
+                Status = notification.Status,
+            };
+        }
+
+        public static LoadData Convert(this Load load)
+        {
+            return new LoadData { 
+                LoadId = load.LoadId,
+                OriginLatitude = load.OriginLatitude,
+                OriginLongitude = load.OriginLongitude,
+                DestinationLatitude = load.DestinationLatitude,
+                DestinationLongitude = load.DestinationLongitude,
+                EquipmentType = load.EquipmentType,
+                Price = load.Price,
+                Mileage = load.Mileage,
             };
         }
     }

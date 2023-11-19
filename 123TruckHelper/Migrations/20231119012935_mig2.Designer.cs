@@ -12,8 +12,8 @@ using _123TruckHelper.Models.EF;
 namespace _123TruckHelper.Migrations
 {
     [DbContext(typeof(TruckHelperDbContext))]
-    [Migration("20231118202015_mig1")]
-    partial class mig1
+    [Migration("20231119012935_mig2")]
+    partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,13 +72,13 @@ namespace _123TruckHelper.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Accepted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
                     b.Property<int>("LoadId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Timestamp")
