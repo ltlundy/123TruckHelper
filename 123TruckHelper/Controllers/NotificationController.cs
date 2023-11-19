@@ -34,14 +34,14 @@ namespace _123TruckHelper.Controllers
         public async Task<NotificationCollection> GetNotificationsForTruckerAsync(int truckId)
         {
             var truckTask = _truckService.GetTruckLocationAsync(truckId);
-
+            var notificationsTask = _notificationService.GetNotificationsForTruckIDAsync(truckId);
 
             var truckData = await truckTask;
-
             var response = new NotificationCollection
             {
                 CurrLat = truckData.PositionLatitude,
                 CurrLon = truckData.PositionLongitude,
+                NotificationTruckResponses = await notificationsTask
             };
             return response;
         }

@@ -3,6 +3,7 @@ using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace _123TruckHelper.Services
 {
@@ -32,11 +33,22 @@ namespace _123TruckHelper.Services
             using var scope = _serviceScopeFactory.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<TruckHelperDbContext>();
 
-            var notificationsEF = dbContext.Notifications
+            var notificationsEF = await dbContext.Notifications
                 .Include(n => n.Truck)
-                .Where();
-
-            return null;
+                .Include(n => n.Load)
+                .Where(n => n.Truck.TruckId == truckID && n.Status == NotificationStatus.Sent)
+                .ToListAsync();
+            return notificationsEF.Select(notificationEF => new NotificationTruckResponse
+            {
+                DestLat = notificationEF.Load.DestinationLatitude,
+                DestLon = notificationEF.Load.DestinationLongitude,
+                OrigLat = notificationEF.Load.OriginLatitude,
+                OrigLon = notificationEF.Load.OriginLongitude,
+                // TODO :: Add Dist to start, profit
+                Revenue = notificationEF.Load.Price,
+                TripDist = notificationEF.Load.Mileage,
+                NotificationID = notificationEF.Id
+            }).ToList();
         }
 
         public async Task<int> RespondToNotificationAsync(int notificationId, bool accepted)

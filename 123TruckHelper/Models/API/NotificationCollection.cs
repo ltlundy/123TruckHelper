@@ -3,7 +3,7 @@
     public class NotificationCollection : HttpResponseMessage
     {
         
-        public NotificationTruckResponse[] NotificationTruckResponses { get; set; }
+        public IEnumerable<NotificationTruckResponse> NotificationTruckResponses { get; set; }
 
         public double CurrLat { get; set; }
 
