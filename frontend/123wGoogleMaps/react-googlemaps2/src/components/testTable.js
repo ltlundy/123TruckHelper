@@ -3,12 +3,16 @@ import DataTable from 'react-data-table-component';
 
 const columns = [
   {
-    name: 'Notification Timestamp',
-    selector: (row) => row.timestamp,
+    name: "Load ID", 
+    selector:(row)=> row.loadId,
   },
   {
     name: 'Truck ID',
     selector: (row) => row.truckId,
+  },
+  {
+    name: 'Notification Timestamp',
+    selector: (row) => row.timestamp,
   },
   {
     name: 'Revenue',
