@@ -3,7 +3,11 @@ using _123TruckHelper.Models.API;
 using _123TruckHelper.Models.EF;
 using _123TruckHelper.Utilities;
 using Microsoft.EntityFrameworkCore;
+using System.Formats.Asn1;
 using System.Linq;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace _123TruckHelper.Services
 {
@@ -11,13 +15,15 @@ namespace _123TruckHelper.Services
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILoadService _loadService;
+        private readonly IConfiguration _config;
 
         private const decimal GAS_PRICE_PER_MILE = 1.38M;
 
-        public NotificationService(IServiceScopeFactory serviceScopeFactory, ILoadService loadService)
+        public NotificationService(IServiceScopeFactory serviceScopeFactory, ILoadService loadService, IConfiguration config)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _loadService = loadService;
+            _config = config;
         }
 
         public async Task<List<NotificationResponse>> GetAllNotificationsAsync()
@@ -210,6 +216,21 @@ namespace _123TruckHelper.Services
         private static double ToRadians(double angle)
         {
             return Math.PI * angle / 180.0;
+        }
+
+        private async Task NotifyNumberOneTruckers(Truck truck, Notification notification)
+        {
+            var accountSid = "AC6e9db69bfd1758ee2bf863141d27a8f7";
+            var authToken = _config.GetValue<string>("TwilioKey");
+            TwilioClient.Init(accountSid, authToken);
+
+            var messageOptions = new CreateMessageOptions(
+              new PhoneNumber(truck.PhoneNumber));
+            messageOptions.From = new PhoneNumber("+15013400710");
+            messageOptions.Body = "New nearby top load, " + notification.Mileage + " Miles away with an estimated profit of: " + notification.Profit;
+
+            var message = MessageResource.Create(messageOptions);
+            Console.WriteLine(message);
         }
     }
 }

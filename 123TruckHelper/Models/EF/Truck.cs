@@ -37,5 +37,7 @@ namespace _123TruckHelper.Models.EF
 
 
         public string? PhoneNumber { get; set; }
+
+        public int BestLoadId { get; set; }
     }
 }
